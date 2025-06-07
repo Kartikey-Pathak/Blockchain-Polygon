@@ -8,6 +8,7 @@ import Text from './Text'
 import Bg from './Bg'
 import Mid from './Mid'
 import Visual from './Visual'
+import InfoVisual from './InfoVisuals'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,7 +25,9 @@ function App() {
         <br />
         <main>
           <Mid />
-          <Visual source="https://polytech-assets.polygon.technology/videos/horizon_wide1.mp4"/>
+          <Visual source="https://polytech-assets.polygon.technology/videos/Lemon_wide.mp4"/>
+          <InfoVisual/>
+          
         </main>
       </div >
     </>
