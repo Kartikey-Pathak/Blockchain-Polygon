@@ -7,6 +7,7 @@ import Header from './Header'
 import Text from './Text'
 import Bg from './Bg'
 import Mid from './Mid'
+import Visual from './Visual'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,7 @@ function App() {
         <br />
         <main>
           <Mid />
+          <Visual source="https://polytech-assets.polygon.technology/videos/horizon_wide1.mp4"/>
         </main>
       </div >
     </>
