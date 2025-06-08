@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <div className=' bg-black min-h-screen w-full relative'>
+      <div className=' bg-black min-h-screen w-full max-w-screen relative'>
         <header>
           <Nav />
           <Header />

@@ -18,7 +18,7 @@ function InfoVisual() {
         url2: "https://polytech-assets.polygon.technology/videos/solutions/Supernets.mp4"
     }
     return (
-        <div className="w-screen h-[50rem] mt-3 border-2 flex  items-center gap-y-10 flex-col">
+        <div className="w-full max-w-screen overflow-x-hidden h-[50rem] mt-3 border-2 flex  items-center gap-y-10 flex-col">
             {/* Heading*/}
             <h1 className=" text-[6vw] text-white font-bold">Next-Gen Crypto Dashboard</h1>
 
