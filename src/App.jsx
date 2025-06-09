@@ -9,6 +9,9 @@ import Bg from './Bg'
 import Mid from './Mid'
 import Visual from './Visual'
 import InfoVisual from './InfoVisuals'
+import ScrolVisuals from './ScrolVisuals'
+import End from './End'
+import Foot from './Foot'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -27,8 +30,12 @@ function App() {
           <Mid />
           <Visual source="https://polytech-assets.polygon.technology/videos/Lemon_wide.mp4"/>
           <InfoVisual/>
-          
+          <ScrolVisuals/>
         </main>
+        <footer>
+          <End/>
+          <Foot/>
+        </footer>
       </div >
     </>
   )

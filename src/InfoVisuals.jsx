@@ -2,6 +2,7 @@ import { div } from "framer-motion/client";
 import { useState } from "react";
 import VideoText from "./VideoText";
 import Video from "./Video";
+import VideoButton from "./VideoButton";
 
 function InfoVisual() {
     const [live, islive] = useState(true)
@@ -18,7 +19,7 @@ function InfoVisual() {
         url2: "https://polytech-assets.polygon.technology/videos/solutions/Supernets.mp4"
     }
     return (
-        <div className="w-full max-w-screen overflow-x-hidden h-[50rem] mt-3 border-2 flex  items-center gap-y-10 flex-col">
+        <div className="w-full max-w-screen h-fit mt-3 flex  items-center gap-y-10 flex-col">
             {/* Heading*/}
             <h1 className=" text-[6vw] text-white font-bold">Next-Gen Crypto Dashboard</h1>
 
@@ -34,12 +35,23 @@ function InfoVisual() {
 
             {/* Dynamic part */}
             <div className=" grid grid-cols-1 md:grid-cols-2 items-center justify-items-center ">
-            {/* video's text part */}
+                {/* video's text part */}
                 <VideoText heading={live ? texts1.heading : text2.heading} sub={live ? texts1.sub : text2.sub} />
-            {/* Video Part */}
+                {/* Video Part */}
                 <Video url={live ? url.url1 : url.url2} />
             </div>
+            {/* Video Button Links */}
+            <VideoButton heading1="Prices" heading2="About" url1="" url2="" />
 
+            {/* the 2nd Video Part */}
+            
+            <div className=" w-full grid grid-cols-1 md:grid-cols-2 items-center justify-items-center ">
+                {/* video's text part */}
+                <VideoText heading="Explore" sub="Dive into the code or connect with me professionally.Track top crypto coins in real-time with a clean, responsive interface. Made for clarity." />
+                {/* Video Part */}
+                <Video url="https://polytech-assets.polygon.technology/videos/solutions/Miden.mp4.mp4" />
+            </div>
+            <VideoButton heading1="GitHub" heading2="Linkedln" url1="https://github.com/Kartikey-Pathak" url2="https://www.linkedin.com/in/kartikey-pathakb580297/" />
         </div>
     )
 }
