@@ -12,13 +12,17 @@ import InfoVisual from './InfoVisuals'
 import ScrolVisuals from './ScrolVisuals'
 import End from './End'
 import Foot from './Foot'
+import { Route, Routes } from 'react-router-dom'
+import Prices from './Prices'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
       <div className=' bg-black min-h-screen w-full max-w-screen relative'>
+        <Routes>
+          <Route
+          path='/'
+          element={
+            <>
         <header>
           <Nav />
           <Header />
@@ -36,8 +40,12 @@ function App() {
           <End/>
           <Foot/>
         </footer>
+        </>
+        }
+        />
+        <Route element={<Prices/>} path='/prices'/>
+        </Routes>
       </div >
-    </>
   )
 }
 

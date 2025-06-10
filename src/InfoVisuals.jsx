@@ -8,11 +8,11 @@ function InfoVisual() {
     const [live, islive] = useState(true)
     const texts1 = {
         heading: "Live Crypto Tracking",
-        sub: "Keep your eyes on the market with up-to-date prices from top cryptocurrencies. Powered by CoinGecko API, your data is always real-time and reliable."
+        sub: "Keep your eyes on the market with up-to-date prices from top cryptocurrencies. Powered by CoinGecko API, your data is always real-time and reliable.Track market movements, view top-performing coins, and explore live price updates — all in a sleek, modern UI inspired by Polygon's design principles.Whether you're a casual investor or a crypto enthusiast, our dashboard offers a fast and clean experience across devices."
     }
     const text2 = {
         heading: "Minimal UI, Max Performance",
-        sub: "Built with modern web technologies and a clean, Polygon-inspired design — your experience is fast, distraction-free, and made for exploration"
+        sub: "Built with modern web technologies and a clean, Polygon-inspired design — your experience is fast, distraction-free, and made for exploration."
     }
     const url = {
         url1: "https://polytech-assets.polygon.technology/videos/solutions/pos.mp4",
@@ -43,11 +43,13 @@ function InfoVisual() {
             {/* Video Button Links */}
             <VideoButton heading1="Prices" heading2="About" url1="" url2="" />
 
+
             {/* the 2nd Video Part */}
-            
+
             <div className=" w-full grid grid-cols-1 md:grid-cols-2 items-center justify-items-center ">
                 {/* video's text part */}
-                <VideoText heading="Explore" sub="Dive into the code or connect with me professionally.Track top crypto coins in real-time with a clean, responsive interface. Made for clarity." />
+                <VideoText heading="Explore" sub="Dive into the code or connect with me professionally.Track top crypto coins in real-time with a clean, responsive interface. Made for clarity.Track top crypto coins in real-time with a clean, responsive interface — built for clarity and speed.
+Dive into the code or connect with me professionally. Powered by the CoinGecko API and crafted with React + Vite." />
                 {/* Video Part */}
                 <Video url="https://polytech-assets.polygon.technology/videos/solutions/Miden.mp4.mp4" />
             </div>
