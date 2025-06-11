@@ -4,7 +4,7 @@ import { useState } from "react";
 function Card({heading,sub,img,url}){
     const [hoverd,ishoverd]=useState(false);
     return(
-             <div className={` w-[90%] flex flex-col bg-[#131117] ${hoverd?"brightness-110 shadow-black shadow-2xl backdrop-blur-4xl scale-100 relative z-30 duration-200 transition-all ease-in-out":null} cursor-pointer h-[26rem] border-2 border-white/3 rounded-2xl`}
+             <div className={` w-[90%] flex flex-col bg-[#131117] ${hoverd?"brightness-110 shadow-black shadow-2xl backdrop-blur-4xl scale-101 relative z-30 duration-200 transition-all ease-in-out":null} cursor-pointer h-[26rem] border-2 border-white/3 rounded-2xl`}
               onMouseEnter={()=>{ishoverd(true)}}
               onMouseLeave={()=>{ishoverd(false)}}
              >

@@ -1,12 +1,48 @@
 import { div } from "framer-motion/client";
+import Nav from "./Nav";
+import End from "./End";
+import Foot from "./Foot";
 // The Price Page
 
-function Price(){
+function Prices(){
     return(
-        <div>
-            <h1 className=" text-white">Price Are</h1>
+        <div className=' bg-[#000000] min-h-screen w-full max-w-screen relative'>
+            <header>
+                <Nav/>
+            </header>
+
+            <main>
+                <div className=" w-full max-w-screen h-fit pt-20 flex flex-col items-center">
+                    {/* Text Part */}
+                    <div className=" gap-y-2 flex justify-center items-center flex-col text-wrap mt-20 text-center w-[80%]">
+                        <h1 className=" text-white font-bold text-[5vw] md:text-[3vw]">Current Prices of Top Cryptocurrencies</h1>
+                        <h4 className=" text-white/50 font-bold text-[3vw] md:text-[1.4vw]">Monitor, compare, and explore crypto price movements.</h4>
+                    </div>
+                     {/* Search And Button */}
+                     <div className=" flex flex-row w-full max-w-screen justify-center gap-1 items-center mt-10">
+                        <input type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name=""/>
+                        <label htmlFor="inp"><button className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button></label>
+                     </div>
+
+                     {/* The Hero Price Part */}
+
+                     <div className=" mt-10 w-[90%] h-[50rem] rounded-xl bg-[#1B1E2D]/40 flex flex-col items-center">
+                        <h1 className=" text-2xl font-bold text-white">Price</h1>
+                     </div>
+
+
+                </div>
+                
+
+            </main>        
+
+
+            <footer>
+                <End/>
+                <Foot/>
+            </footer>
 
         </div>
     )
 }
-export default Price;
+export default Prices;
