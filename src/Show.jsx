@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import {mp,arr} from "./data/ShowContents";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 
 function Show({ menu }) {
@@ -24,6 +24,19 @@ function Show({ menu }) {
 
         })}
     },[menu]);
+
+     useEffect(() => {
+        if (menu) {
+            window.scrollTo({top:0,behavior:"smooth"})
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        // Cleanup when component unmounts
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [menu]);
 
     return (
         <div className="">
