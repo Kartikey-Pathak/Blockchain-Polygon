@@ -1,10 +1,34 @@
 import { head } from "framer-motion/client";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Card({heading,sub,img,url}){
+    const cardref=useRef(null);
+
+      useGSAP(()=>{
+        gsap.from(cardref.current,{
+            opacity:0,
+            duration:1,
+            scale:0.7,
+            scrollTrigger:{
+                trigger:cardref.current,
+                scroller:"body",
+                scrub:2,
+                start:"top 70%",
+                end:"top 90%"
+            }
+        })
+
+    },[]);
+
+
     const [hoverd,ishoverd]=useState(false);
     return(
-             <div className={` w-[90%] flex flex-col bg-[#131117] ${hoverd?"brightness-110 shadow-black shadow-2xl backdrop-blur-4xl scale-101 relative z-30 duration-200 transition-all ease-in-out":null} cursor-pointer h-[26rem] border-2 border-white/3 rounded-2xl`}
+             <div ref={cardref} className={` w-[90%] flex flex-col bg-[#131117] ${hoverd?"brightness-110 shadow-black shadow-2xl backdrop-blur-4xl scale-105 relative z-30 duration-200 transition-all ease-in-out":null} cursor-pointer h-[26rem] border-2 border-white/3 rounded-2xl`}
               onMouseEnter={()=>{ishoverd(true)}}
               onMouseLeave={()=>{ishoverd(false)}}
              >

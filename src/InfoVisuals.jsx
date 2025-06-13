@@ -1,30 +1,59 @@
 import { div } from "framer-motion/client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import VideoText from "./VideoText";
 import Video from "./Video";
 import VideoButton from "./VideoButton";
+import { texts1,texts2,url } from "./data/InfoVisualContent";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger);
 
 function InfoVisual() {
-    const [live, islive] = useState(true)
-    const texts1 = {
-        heading: "Live Crypto Tracking",
-        sub: "Keep your eyes on the market with up-to-date prices from top cryptocurrencies. Powered by CoinGecko API, your data is always real-time and reliable.Track market movements, view top-performing coins, and explore live price updates — all in a sleek, modern UI inspired by Polygon's design principles.Whether you're a casual investor or a crypto enthusiast, our dashboard offers a fast and clean experience across devices."
-    }
-    const text2 = {
-        heading: "Minimal UI, Max Performance",
-        sub: "Built with modern web technologies and a clean, Polygon-inspired design — your experience is fast, distraction-free, and made for exploration."
-    }
-    const url = {
-        url1: "https://polytech-assets.polygon.technology/videos/solutions/pos.mp4",
-        url2: "https://polytech-assets.polygon.technology/videos/solutions/Supernets.mp4"
-    }
+    const btnref=useRef(null)
+      //Animation for UI/UX Button
+      useGSAP(()=>{
+        gsap.from(btnref.current,{
+            opacity:0,
+            duration:1,
+            scale:0.8,
+            scrollTrigger:{
+                trigger:btnref.current,
+                scroller:"body",
+                scrub:2,
+                start:"top 90%",
+                end:"top 40%"
+            }
+        })
+    },[]);
+
+
+    useGSAP(()=>{
+        gsap.from("#gen",{
+            opacity:0,
+            duration:1,
+            scale:0.7,
+            scrollTrigger:{
+                trigger:"#gen",
+                scroller:"body",
+                scrub:2,
+                start:"top 90%",
+                end:"top 40%"
+            }
+        })
+    },[]);
+
+    const [live, islive] = useState(true);
+    
     return (
         <div className="w-full max-w-screen h-fit mt-3 flex  items-center gap-y-10 flex-col">
             {/* Heading*/}
-            <h1 className=" text-[6vw] text-white font-bold">Next-Gen Crypto Dashboard</h1>
+            <h1 id="gen" className=" text-[6vw] text-white font-bold">Next-Gen Crypto Dashboard</h1>
 
             {/* the button ui part */}
-            <div className=" bg-white/10 rounded-4xl backdrop-blur-2xl shadow h-12 w-[60%] max-w-64 border-2 flex items-center flex-row ">
+            <div ref={btnref} className=" bg-white/10 rounded-4xl backdrop-blur-2xl shadow h-12 w-[60%] max-w-64 border-2 flex items-center flex-row ">
                 <div className={`rounded-4xl h-full w-[40%] hover:bg-white/80 cursor-pointer shadow ${live ? "bg-white" : "bg-transparent"} flex justify-center items-center transition-all ease-in-out duration-200`} onClick={() => islive(true)}>
                     <h1 className={`${live ? "text-black" : "text-white"} font-bold`}>Live</h1>
                 </div>
@@ -36,7 +65,7 @@ function InfoVisual() {
             {/* Dynamic part */}
             <div className=" grid grid-cols-1 md:grid-cols-2 items-center justify-items-center ">
                 {/* video's text part */}
-                <VideoText heading={live ? texts1.heading : text2.heading} sub={live ? texts1.sub : text2.sub} />
+                <VideoText heading={live ? texts1.heading : texts2.heading} sub={live ? texts1.sub : texts2.sub} />
                 {/* Video Part */}
                 <Video url={live ? url.url1 : url.url2} />
             </div>

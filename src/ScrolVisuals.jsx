@@ -1,10 +1,35 @@
 import { div } from "framer-motion/client";
 import Card from "./Card";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 function ScrolVisuals() {
+
+     useGSAP(()=>{
+        gsap.from("#time-title",{
+            opacity:0,
+            duration:1,
+            scale:0.7,
+            scrollTrigger:{
+                trigger:"#time-title",
+                scroller:"body",
+                scrub:2,
+                start:"top 90%",
+                end:"top 40%"
+            }
+        })
+
+    },[]);
+
+
+
     return (
         <div className="w-full max-w-screen h-fit md:h-fit mt-3 flex justify-start gap-y-10 flex-col">
-            <h1 className=" text-white font-bold text-2xl m-3 md:m-5 md:text-3xl">Time to roll up your sleeves</h1>
+            <h1 id="time-title" className=" text-white font-bold text-2xl m-3 md:m-5 md:text-3xl">Time to roll up your sleeves</h1>
 
             <div className=" w-full max-w-screen grid grid-cols-1 md:grid-cols-2 gap-y-5 justify-center place-items-center">
                 {/* Cards */}
