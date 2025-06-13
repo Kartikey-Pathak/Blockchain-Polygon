@@ -2,9 +2,52 @@ import { div } from "framer-motion/client";
 import Nav from "./Nav";
 import End from "./End";
 import Foot from "./Foot";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 // The Price Page
 
+
+
+
 function Prices(){
+    const titleref=useRef(null);
+    const heroref=useRef(null);
+
+      useGSAP(()=>{
+        gsap.from(titleref.current,{
+            opacity:0,
+            duration:1.1,
+            delay:0.1,
+            scale:0.8,
+        })
+    },[]);
+
+      useGSAP(()=>{
+        gsap.from(heroref.current,{
+            opacity:0.4,
+            duration:0.2,
+            delay:0.1,
+            scale:0.9,
+            scrollTrigger:{
+                trigger:heroref.current,
+                scroller:"body",
+                scrub:2,
+                markers:true,
+                start:"top 70%",
+                end:"top 30%"
+
+                
+            }
+        })
+    },[]);
+    
+
+
     return(
         <div className=' bg-[#000000] min-h-screen w-full max-w-screen relative'>
             <header>
@@ -14,8 +57,8 @@ function Prices(){
             <main>
                 <div className=" w-full max-w-screen h-fit pt-20 flex flex-col items-center">
                     {/* Text Part */}
-                    <div className=" gap-y-2 flex justify-center items-center flex-col text-wrap mt-20 text-center w-[80%]">
-                        <h1 className=" text-white font-bold text-[5vw] md:text-[3vw]">Current Prices of Top Cryptocurrencies</h1>
+                    <div ref={titleref} className=" gap-y-2 flex justify-center items-center flex-col text-wrap mt-20 text-center w-[80%]">
+                        <h1  className=" text-white font-bold text-[5vw] md:text-[3vw]">Current Prices of Top Cryptocurrencies</h1>
                         <h4 className=" text-white/50 font-bold text-[3vw] md:text-[1.4vw]">Monitor, compare, and explore crypto price movements.</h4>
                     </div>
                      {/* Search And Button */}
@@ -26,7 +69,7 @@ function Prices(){
 
                      {/* The Hero Price Part */}
 
-                     <div className=" mt-10 w-[90%] h-[50rem] rounded-xl bg-[#1B1E2D]/40 flex flex-col items-center">
+                     <div ref={heroref} className=" mt-10 w-[90%] h-[50rem] rounded-xl bg-[#1B1E2D]/40 flex flex-col items-center">
                         <h1 className=" text-2xl font-bold text-white">Price</h1>
                      </div>
 
