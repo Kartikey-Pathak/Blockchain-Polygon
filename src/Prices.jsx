@@ -37,7 +37,7 @@ function Prices(){
                 trigger:heroref.current,
                 scroller:"body",
                 scrub:2,
-                markers:true,
+        
                 start:"top 70%",
                 end:"top 30%"
 
@@ -69,8 +69,19 @@ function Prices(){
 
                      {/* The Hero Price Part */}
 
-                     <div ref={heroref} className=" mt-10 w-[90%] h-[50rem] rounded-xl bg-[#1B1E2D]/40 flex flex-col items-center">
-                        <h1 className=" text-2xl font-bold text-white">Price</h1>
+                     <div ref={heroref} className=" relative mt-10 w-[90%] h-[50rem] rounded-xl bg-[#1B1E2D]/40 flex flex-col items-center">
+                        <h1 className=" text-2xl font-bold text-white">Top Movers</h1>
+                        <br />
+                        <div className="flex flex-row gap-2.5 w-full border-b-2 border-gray-700 h-10 items-center justify-evenly md:justify-between">
+                        <h1 className=" font-semibold text-md md:text-xl md:ml-3 lg:mr-6">#</h1>
+                        <h1 className=" font-semibold text-md md:text-xl">Coins</h1>
+    
+                        <h1 className=" font-semibold text-md md:text-xl">Price</h1>
+                        
+                        <h1 className=" font-semibold text-md md:text-xl">24hrs</h1>
+                        
+                        <h1 className=" font-semibold text-md md:text-xl md:mr-3 lg:ml-6">Market cap</h1>
+                     </div>
                      </div>
 
 
