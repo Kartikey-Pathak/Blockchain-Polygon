@@ -1,13 +1,18 @@
 import { div } from "framer-motion/client";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import Show from "./Show";
 import { Link } from "react-router-dom";
 import {mp,arr} from "./data/ShowContents";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import HoverBox from "./Components/HoverBox";
 
 function Nav() {
+  const boxref=useRef(null);
   const [menu, showmenu] = useState(false)
   const [nav, setnav] = useState(window.innerWidth > 1000);
-
+  const [hover,sethover]=useState(null);
+   
   useEffect(() => {
     const handlesize = () => {
       const isWide = window.innerWidth > 1000;
@@ -20,7 +25,20 @@ function Nav() {
     handlesize();
 
     return () => window.removeEventListener("resize", handlesize);
-    },[])
+    },[hover])
+    useEffect(()=>{
+      gsap.to(boxref.current,{
+      opacity:1,
+      delay:0.1,
+      height:450,
+      width:550,
+      ease:"power1.inOut"
+      
+
+    }
+    );
+
+    },[hover])
 
 return (
   <div>
@@ -42,11 +60,13 @@ return (
           <div className="flex flex-row justify-start gap-10 mr-10">
             {
               arr.map((item,idx)=>(
-                <div className=" px-12 py-3 rounded-4xl hover:bg-white/20 cursor-pointer transition-all" key={idx}>
+                <div className=" px-12 py-3 rounded-4xl hover:bg-white/20 cursor-pointer transition-all" onMouseEnter={() => sethover(idx)}  onMouseLeave={() => sethover(null)} key={idx}>
                    <a href={mp[item]}><span className=" font-semibold text-[1.1rem]">{item}</span></a>
-                   {/* <div className=" absolute z-30 bg-white h-72 w-96">
-                              ff
-                   </div> */}
+                    {hover==idx?
+                   <div ref={boxref} className={`opacity-0 absolute z-30 ${idx==3?"right-36":"mr-0"} ${idx==2?"right-64":"mr-0"} bg-[#111111] rounded-3xl h-0 w-0`}>
+                              <HoverBox idx={idx}/>
+                   </div>:null
+                   }
                 </div>
 
               ))
