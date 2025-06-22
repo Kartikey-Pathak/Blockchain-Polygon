@@ -12,15 +12,7 @@ function HoverBox({idx}){
                 {/* texts */}
                 <h1 className=" mt-10 text-2xl">Repo : <span className=" text-blue-500"><a href="https://github.com/Kartikey-Pathak/Blockchain-Polygon">PolyDash</a></span></h1>
                  <h1 className=" text-2xl">Profile : <span className=" text-blue-500"><a href="https://github.com/Kartikey-Pathak">Kartikey-Pathak</a></span></h1>
-            </div>:
-             <div className=" h-full w-full flex items-center flex-col gap-8 justify-center">
-                <div className=" mt-5 rounded-3xl size-56">
-                <img src="/polydash.png" className=" rounded-3xl object-cover" alt="" />
-                </div>
-                {/* texts */}
-                <h1 className=" mt-10 text-2xl">Repo : <span className=" text-blue-500"><a href="https://github.com/Kartikey-Pathak/Blockchain-Polygon">PolyDash</a></span></h1>
-                 <h1 className=" text-2xl">Profile : <span className=" text-blue-500"><a href="https://github.com/Kartikey-Pathak">Kartikey-Pathak</a></span></h1>
-            </div>
+            </div>:null
             }
 
         </div>
