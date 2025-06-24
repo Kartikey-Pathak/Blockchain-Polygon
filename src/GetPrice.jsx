@@ -12,7 +12,7 @@ function GetPrice() {
                 method: 'GET',
                 headers: {
                     accept: 'application/json',
-                    'x-cg-demo-api-key': '	CG-SgjhX4RxZEx5Y267gJZZ9iU5'
+                    'x-cg-demo-api-key': 'CG-SgjhX4RxZEx5Y267gJZZ9iU5'
                 }
             };
 

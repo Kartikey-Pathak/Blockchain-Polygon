@@ -62,11 +62,11 @@ return (
               arr.map((item,idx)=>(
                 <div className=" px-12 py-3 rounded-4xl hover:bg-white/20 cursor-pointer transition-all" onMouseEnter={() => sethover(idx)}  onMouseLeave={() => sethover(null)} key={idx}>
                    <a href={mp[item]}><span className=" font-semibold text-[1.1rem]">{item}</span></a>
-                    {hover==idx?
+                    {/* {hover==idx?
                    <div ref={boxref} className={`opacity-0 absolute z-30 ${idx==3?"right-36":"mr-0"} ${idx==2?"right-64":"mr-0"} bg-[#111111] rounded-3xl h-0 w-0`}>
                               <HoverBox idx={idx}/>
                    </div>:null
-                   }
+                   } */}
                 </div>
 
               ))
