@@ -14,6 +14,7 @@ import End from './End'
 import Foot from './Foot'
 import { Route, Routes } from 'react-router-dom'
 import Prices from './Prices'
+import Data from './Data'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         }
         />
         <Route element={<Prices/>} path='/prices'/>
+        <Route element={<Data/>} path='/prices/data'/>
         </Routes>
       </div >
   )

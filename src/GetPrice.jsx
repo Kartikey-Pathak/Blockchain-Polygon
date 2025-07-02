@@ -1,9 +1,11 @@
 import { div, h1 } from "framer-motion/client";
 import { useEffect, useState } from "react";
+import { Link, useLocation } from 'react-router-dom';
 
 function GetPrice() {
     const [Allcoins, setcoins] = useState([]);
     const [loading,setloading]=useState(true);
+
 
     useEffect(() => {
         const theApi = () => {
@@ -36,10 +38,10 @@ function GetPrice() {
 
     return (
 
-        <div className=" w-[90%]">
+        <div className=" w-[90%] relative">
             { !loading?
                 Allcoins.map((data, idx) => (
-                    <div key={idx} className="grid grid-cols-5 mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between">
+                    <Link to="/prices/data" state={data}><div key={idx} className="grid grid-cols-5 mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between">
                         <div className=" flex flex-row items-center justify-center md:gap-10 gap-1">
                             <img className=" object-cover size-5" src={data.image} alt="" />
                             <h1 className=" font-medium">{idx + 1}</h1>
@@ -48,10 +50,11 @@ function GetPrice() {
                         <h1 className=" font-bold text-sm md:text-xl">₹{data.current_price}</h1>
                         <h1 className="text-sm md:text-xl">{Math.round(data.price_change_percentage_24h)}%</h1>
                         <h1 className="text-sm md:text-xl">{Math.round(data.market_cap_change_percentage_24h)}%</h1>
-                    </div>
+                    </div></Link>
                 ))
                : <div className=" flex items-center justify-center mt-20"><span className="loading loading-infinity loading-xl"></span></div> 
             }
+           
 
 
 
