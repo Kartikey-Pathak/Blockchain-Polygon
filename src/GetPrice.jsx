@@ -41,7 +41,7 @@ function GetPrice() {
         <div className=" w-[90%] relative">
             { !loading?
                 Allcoins.map((data, idx) => (
-                    <Link to="/prices/data" state={data}><div key={idx} className="grid grid-cols-5 mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between">
+                    <Link to="/prices/data" key={idx} state={data}><div key={idx} className="grid grid-cols-5 mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between">
                         <div className=" flex flex-row items-center justify-center md:gap-10 gap-1">
                             <img className=" object-cover size-5" src={data.image} alt="" />
                             <h1 className=" font-medium">{idx + 1}</h1>
