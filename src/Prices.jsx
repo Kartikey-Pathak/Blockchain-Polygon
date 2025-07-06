@@ -74,14 +74,14 @@ function Prices(){
                         <h1 className=" md:text-2xl text-md font-bold text-white">Top Movers</h1>
                         <br />
                         <div className="flex flex-row gap-2.5 w-[90%] border-b-2 border-gray-700 h-10 items-center justify-evenly md:justify-between">
-                        <h1 className=" font-semibold text-md md:text-xl md:ml-3 lg:mr-6">#</h1>
-                        <h1 className=" font-semibold text-sm md:text-xl">Coins</h1>
+                        <h1 className=" font-semibold text-md flex justify-center text-center md:text-xl md:ml-3 lg:mr-6">#</h1>
+                        <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">Coins</h1>
     
-                        <h1 className=" font-semibold text-sm md:text-xl">Price</h1>
+                        <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">Price</h1>
                         
-                        <h1 className=" font-semibold text-sm md:text-xl">24hrs</h1>
+                        <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">24hrs</h1>
                         
-                        <h1 className=" font-semibold text-sm md:text-xl md:mr-3 lg:ml-6">Market cap</h1>
+                        <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl md:mr-3 lg:ml-6">Market cap</h1>
                      </div>
                      <GetPrice/>
                      </div>
