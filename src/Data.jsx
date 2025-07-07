@@ -16,21 +16,21 @@ function Data() {
 
             <main>
                 <div className="w-ful max-w-screen h-[35rem] flex items-center justify-center">
-                    <div className=" mt-[50rem] md:mt-[60rem] lg:mt-[30rem] border-2 border-yellow-400 flex items-center justify-center w-full h-fit flex-col lg:flex-row ">
+                    <div className=" mt-[50rem] md:mt-[60rem] lg:mt-[30rem]  flex items-center justify-center w-full h-fit flex-col lg:flex-row ">
 
 
                         {/* information */}
-                        <div className=" h-fit md:w-full mt-12 flex items-start flex-col border-4  md:order-2">
+                        <div className=" h-fit w-full mt-12 flex items-start flex-col  md:order-2">
                             <h1 className="text-4xl text-white font-semibold mt-3 mx-auto">Coin Info</h1>
 
-                            <div className=" h-20 w-[90vw]  md:w-[25vw] border-6 items-center justify-center  m-10 flex flex-col">
+                            <div className=" h-20 w-[90vw]  md:w-[25vw]  items-center justify-center  m-10 flex flex-col">
                                 <div className="h-1/2 w-full flex items-center justify-start flex-row">
 
-                                    <div className="w-full h-full flex items-start gap-1 justify-start">
-                                        <div className=' h-full w-1/10 md:w-1/7 flex items-center justify-center m-3'>
+                                    <div className="w-full h-[3.2rem] flex items-start gap-1 justify-start">
+                                        <div className=' h-full w-1/6 md:w-1/7 flex items-center justify-center m-3'>
                                             <img src={coin.image} className="h-full w-full object-cover" alt="" />
                                         </div>
-                                        <h1 className="text-white text-xl">{coin.name}</h1>
+                                        <h1 className="text-white text-xl text-center mt-3">{coin.name}</h1>
                                     </div>
                                 </div>
 
