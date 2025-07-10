@@ -16,6 +16,7 @@ import { Route, Routes } from 'react-router-dom'
 import Prices from './Prices'
 import Data from './Data'
 import User from './User'
+import Create from './Create'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route element={<Prices/>} path='/prices'/>
         <Route element={<Data/>} path='/prices/data'/>
         <Route element={<User/>} path='/user'/>
+        <Route element={<Create/>} path='/user/create'/>
         </Routes>
       </div >
   )
