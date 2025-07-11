@@ -17,6 +17,7 @@ import Prices from './Prices'
 import Data from './Data'
 import User from './User'
 import Create from './Create'
+import List from './List'
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <Route element={<Data/>} path='/prices/data'/>
         <Route element={<User/>} path='/user'/>
         <Route element={<Create/>} path='/user/create'/>
+        <Route element={<List/>} path='/user/list'/>
         </Routes>
       </div >
   )
