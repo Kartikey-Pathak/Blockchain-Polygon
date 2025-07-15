@@ -33,6 +33,7 @@ function Foot(){
             <div className="absolute bottom-5 flex justify-center items-center">
                 <h3 className="text-sm text-white/20">© 2025 CryptoDash UI-A Polygon Inspired Project.</h3>
             </div>
+                        <h1 className=' absolute left-5 bottom-10 font-semibold text-[1rem] text-white/20'>Developer ~ Kartikey Pathak.</h1>
         </div>
     )
 }

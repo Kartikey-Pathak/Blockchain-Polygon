@@ -10,7 +10,7 @@ function Data() {
 
 
     return (
-        <div className=" w-full max-w-screen md:min-h-screen h-[90rem] md:h-[70rem] relative bg-black">
+        <div className=" w-full max-w-screen md:min-h-screen h-[100rem] md:h-[70rem] relative bg-black">
             <header>
                 <Nav />
             </header>
@@ -27,15 +27,15 @@ function Data() {
                             <div className=" h-20 w-[90vw]  md:w-[25vw]  items-center justify-center  m-10 flex flex-col">
                                 <div className="h-1/2 w-full flex items-center justify-start flex-row">
 
-                                    <div className="w-full h-[3.2rem] flex items-start gap-1 justify-start">
-                                        <div className=' h-full w-1/6 md:w-1/7 flex items-center justify-center m-3'>
+                                    <div className="w-full h-[3.4rem] flex items-start gap-1 justify-start">
+                                        <div className=' h-full w-1/6 md:w-14 flex items-center justify-center m-3'>
                                             <img src={coin.image} className="h-full w-full object-cover" alt="" />
                                         </div>
                                         <h1 className="text-white text-xl text-center mt-3">{coin.name}</h1>
                                     </div>
                                 </div>
 
-                                <div className="h-full w-full flex items-end justify-end">
+                                <div className="h-full w-full flex items-end justify-end mt-5">
                                     <div className=" h-full w-full flex items-center justify-center gap-5">
                                         <h1 className="text-white text-3xl font-semibold">₹{coin.current_price.toLocaleString('en-IN') ?? 'N/A'}</h1>
                                         <h1 className=" text-green-700 text-xl">{coin.price_change_percentage_24h.toFixed(2) ?? 'N/A'}</h1>
@@ -48,11 +48,11 @@ function Data() {
 
                             <div className=' w-full flex justify-center flex-col gap-10 items-center'>
                                 <div className=' w-[80%] md:w-[70%] px-5 border-b-2 border-gray-600 flex items-start gap-5 flex-row justify-between'>
-                                    <h1 className=' text-gray-400 text-xl md:text-2xl font-semibold'>Market Cap</h1>
+                                    <h1 className=' text-gray-400 text-[4vw] md:text-2xl font-semibold'>Market Cap</h1>
                                     <h1 className='text-gray-400 text-xl md:text-2xl font-semibold'>₹{coin.market_cap?.toLocaleString('en-IN') ?? 'N/A'}</h1>
                                 </div>
                                 <div className=' w-[80%] md:w-[70%] px-5 border-b-2 border-gray-600 flex items-start gap-5 flex-row justify-between'>
-                                    <h1 className=' text-gray-400 text-xl  md:text-2xl font-semibold'>Fully Diluted Valuation</h1>
+                                    <h1 className=' text-gray-400 text-[4vw]  md:text-2xl font-semibold'>Fully Diluted Valuation</h1>
                                     <h1 className='text-gray-400 text-xl md:text-2xl font-semibold'>₹{coin.fully_diluted_valuation?.toLocaleString('en-IN') ?? 'N/A'}</h1>
                                 </div>
                                 <div className=' w-[80%] md:w-[70%] px-5 border-b-2 border-gray-600 flex items-start gap-5 flex-row justify-between'>
@@ -73,7 +73,7 @@ function Data() {
                                 </div>
 
                                 {/* Save Button */}
-                                <div className=' w-[30vw] max-w-[15rem] bg-green-600 flex items-center justify-center py-3 rounded-4xl hover:bg-green-800 hover:scale-95 transition-all cursor-pointer'>
+                                <div onClick={()=>{alert("Coin Saved....")}} className=' w-[30vw] max-w-[15rem] bg-green-600 flex items-center justify-center py-3 rounded-4xl hover:bg-green-800 hover:scale-95 transition-all cursor-pointer'>
                                     <h1 className=' text-xl font-semibold text-white'>Save</h1>
                                 </div>
                                 <br />
@@ -97,9 +97,11 @@ function Data() {
             </main>
 
 
-            <div className=' absolute bottom-10 right-0 left-0'>
+            <div className=' absolute bottom-50 md:bottom-10  right-0 left-0'>
                 <MyCoinsBtn />
             </div>
+
+            <h1 className=' absolute left-5 bottom-10 font-semibold text-[1rem] text-white/20'>Developer ~ Kartikey Pathak.</h1>
 
         </div>
     )
