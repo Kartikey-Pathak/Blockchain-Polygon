@@ -1,4 +1,4 @@
-import { div, s } from "framer-motion/client";
+
 import { useState, useEffect, useActionState } from 'react';
 import { Link} from 'react-router-dom';
 
@@ -8,14 +8,16 @@ function Create() {
     const handleSubmit = async (prevdata, formdata) => {
         let name = formdata.get('name');
         let pass = formdata.get('password');
+        let email=formdata.get('email');
 
         await new Promise(res => setTimeout(res, 2000));
 
-        if (name && pass) {
-            return { msg: "Data Submiited", name, pass };
+        if (name && pass&& email) {
+            return { msg: "Data Submiited", name, pass,email};
         } else {
-            return { error: "Fill Both The Details..", name, pass };
+            return { error: "Fill All The Details..", name, pass,email };
         }
+
     }
 
     const [data, action, pending] = useActionState(handleSubmit, null);
@@ -38,12 +40,12 @@ function Create() {
                             </div>
 
                             <div className='flex justify-center items-center gap-3 mt-20'>
-                                <label htmlFor="user"><i className="fa-solid fa-envelope text-xl text-black"></i></label>
-                                <input type="email" defaultValue={data?.name} id='user' name='name' className=' text-xl lg:text-2xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-blue-700 placeholder-black' placeholder='Enter Email' />
+                                <label htmlFor="email"><i className="fa-solid fa-envelope text-xl text-black"></i></label>
+                                <input type="email" defaultValue={data?.email} id='email' name='email' className=' text-xl lg:text-2xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-blue-700 placeholder-black' placeholder='Enter Email' />
                             </div>
                             
                             <div className='flex justify-center items-center gap-3 mt-20 relative'>
-                                <label htmlFor="user"><i class="fa-solid fa-lock text-xl text-black"></i></label>
+                                <label htmlFor="pass"><i className="fa-solid fa-lock text-xl text-black"></i></label>
                                 <input type={visible ? "text" : "password"} defaultValue={data?.pass} id='pass' name='password' className=' lg:text-2xl text-xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-red-700 placeholder-black' placeholder='Create Password' />
                                 <i onClick={() => setVisible(!visible)} className={`fa-solid ${visible ? "fa-eye-slash" : "fa-eye"}  absolute right-1 text-xl text-gray-600 cursor-pointer hover:text-gray-900 transition`}></i>
                             </div>
@@ -51,7 +53,7 @@ function Create() {
                             {/* Submission button */}
                             <div className='flex justify-center items-center mt-10'>
 
-                                <button disabled={pending} className='h-20 w-64 bg-black rounded-4xl font-medium text-xl cursor-pointer hover:bg-gray-900 transiton'>{pending ? 'Signing-In...' : 'Sign-In'}</button>
+                                <button disabled={pending} className='h-20 w-64 bg-black rounded-4xl font-medium text-xl cursor-pointer hover:bg-gray-900 transiton'>{pending ? 'Creating...' : 'Create Account'}</button>
                             </div>
                         </form>
                     </div>
