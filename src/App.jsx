@@ -18,6 +18,7 @@ import Data from './Data'
 import User from './User'
 import Create from './Create'
 import List from './List'
+import Otp from './Components/Otp'
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route element={<User/>} path='/user'/>
         <Route element={<Create/>} path='/user/create'/>
         <Route element={<List/>} path='/user/list'/>
+           <Route element={<Otp/>} path='/user/otp'/>
         </Routes>
       </div >
   )

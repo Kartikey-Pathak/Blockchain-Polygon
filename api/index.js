@@ -12,18 +12,18 @@ app.post("/user/signup", async (req, resp) => {
     try {
         let exist = await product.findOne({ name: req.body.name });
         if (exist) {   //already exists
-            return resp.send({ error: "exists !" });
+            return resp.status(400).send({ error: "User Exists !" });
         }
         // otherwise
         let user = new product(req.body);
         let result = await user.save();
 
         console.log(result);
-        resp.send(req.body);
+        resp.status(201).send({msg:"Saved"});
 
     } catch(err){
         console.log(err);
-        resp.send({error:"Server Error !"});
+        resp.status(500).send({error:"Server Error !"});
 
     }
 

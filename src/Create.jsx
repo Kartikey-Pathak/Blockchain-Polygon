@@ -1,22 +1,56 @@
 
+import { h1 } from 'framer-motion/client';
 import { useState, useEffect, useActionState } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Create() {
     const [visible, setVisible] = useState(false);
+    const [saved,exist]=useState();
+
+    const navigate = useNavigate();
+
 
     const handleSubmit = async (prevdata, formdata) => {
         let name = formdata.get('name');
-        let pass = formdata.get('password');
-        let email=formdata.get('email');
+        let password = formdata.get('password');
+        let email = formdata.get('email');
 
-        await new Promise(res => setTimeout(res, 2000));
-
-        if (name && pass&& email) {
-            return { msg: "Data Submiited", name, pass,email};
-        } else {
-            return { error: "Fill All The Details..", name, pass,email };
+        if (!name || !password || !email) {
+            return { error2: "Fill All The Details.." };
         }
+
+
+        
+        if(password.length<3){
+            return {error3:"Password Too Short..."};
+        }
+
+        // Fetching the Api to save user data
+        try{
+            let resp=await fetch("http://localhost:5000/user/signup",{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body:JSON.stringify({name,password,email}),
+            });
+            const result=await resp.json();
+            console.log(result);
+
+            if(resp.status===201){
+                  console.log("Saved")
+                    navigate("/user/otp");
+                return {msg:result.msg}
+                
+            }else if(resp.status===400){
+                return {error:result.error};
+            }
+        }catch (err){
+
+        }
+
+
 
     }
 
@@ -27,7 +61,7 @@ function Create() {
     return (
         <div className="">
             <div className='flex justify-center items-center h-screen'>
-                <div className='bg-white h-[35rem] w-[22rem] md:h-[36rem] md:w-[24rem] rounded-4xl lg:w-[27rem] xl:h-[38rem] xl:w-[28rem]'>        {/* h-[39rem] w-[29rem] */}
+                <div className='bg-white h-screen w-[22rem] md:h-[36rem] md:w-[24rem] rounded-4xl lg:w-[27rem] xl:h-[38rem] xl:w-[28rem]'>        {/* h-[39rem] w-[29rem] */}
                     <div className='flex justify-center mt-5'>
                         <h1 className=' font-bold text-3xl text-black'>Create Account</h1>
                     </div>
@@ -43,12 +77,24 @@ function Create() {
                                 <label htmlFor="email"><i className="fa-solid fa-envelope text-xl text-black"></i></label>
                                 <input type="email" defaultValue={data?.email} id='email' name='email' className=' text-xl lg:text-2xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-blue-700 placeholder-black' placeholder='Enter Email' />
                             </div>
-                            
+
                             <div className='flex justify-center items-center gap-3 mt-20 relative'>
                                 <label htmlFor="pass"><i className="fa-solid fa-lock text-xl text-black"></i></label>
                                 <input type={visible ? "text" : "password"} defaultValue={data?.pass} id='pass' name='password' className=' lg:text-2xl text-xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-red-700 placeholder-black' placeholder='Create Password' />
                                 <i onClick={() => setVisible(!visible)} className={`fa-solid ${visible ? "fa-eye-slash" : "fa-eye"}  absolute right-1 text-xl text-gray-600 cursor-pointer hover:text-gray-900 transition`}></i>
                             </div>
+                            {
+                                data?.msg && <span className=' absolute z-50 m-2 text-green-500'>{data.msg}</span>
+                            }
+                            {
+                                data?.error&&<span className=' absolute z-50 m-2 text-red-600'>{data.error}</span>
+                            }
+                            {
+                                data?.error2 && <span className='absolute z-50 m-2 text-red-600'>Fill All The Details</span>
+                            }
+                            {
+                                data?.error3 && <span className='absolute z-50 m-2 text-red-600'>{data.error3}</span>
+                            }
 
                             {/* Submission button */}
                             <div className='flex justify-center items-center mt-10'>
