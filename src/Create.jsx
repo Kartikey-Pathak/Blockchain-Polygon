@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Create() {
     const [visible, setVisible] = useState(false);
-    const [saved,exist]=useState();
+    const [saved, exist] = useState();
 
     const navigate = useNavigate();
 
@@ -21,33 +21,33 @@ function Create() {
         }
 
 
-        
-        if(password.length<3){
-            return {error3:"Password Too Short..."};
+
+        if (password.length < 3) {
+            return { error3: "Password Too Short..." };
         }
 
         // Fetching the Api to save user data
-        try{
-            let resp=await fetch("http://localhost:5000/user/signup",{
-                method:'POST',
-                headers:{
+        try {
+            let resp = await fetch("http://localhost:5000/user/signup", {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
                 },
-                body:JSON.stringify({name,password,email}),
+                body: JSON.stringify({ name, password, email }),
             });
-            const result=await resp.json();
+            const result = await resp.json();
             console.log(result);
 
-            if(resp.status===201){
-                  console.log("Saved")
-                    navigate("/user/otp");
-                return {msg:result.msg}
-                
-            }else if(resp.status===400){
-                return {error:result.error};
-            }
-        }catch (err){
+            if (resp.status === 201) {
+                console.log("Saved");
+                navigate("/user/otp");
+                return { msg: result.msg }
 
+            } else if (resp.status === 400) {
+                return { error: result.error };
+            }
+        } catch (err) {
+            console.log(err);
         }
 
 
@@ -87,7 +87,7 @@ function Create() {
                                 data?.msg && <span className=' absolute z-50 m-2 text-green-500'>{data.msg}</span>
                             }
                             {
-                                data?.error&&<span className=' absolute z-50 m-2 text-red-600'>{data.error}</span>
+                                data?.error && <span className=' absolute z-50 m-2 text-red-600'>{data.error}</span>
                             }
                             {
                                 data?.error2 && <span className='absolute z-50 m-2 text-red-600'>Fill All The Details</span>
