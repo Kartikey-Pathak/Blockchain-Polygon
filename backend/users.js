@@ -5,5 +5,6 @@ const productSchema=new mongoose.Schema({
     password:String,
     otp:Number,
     otpExpire:Date,
+    isVerified:{type:Boolean,default:false}
 });
 module.exports=mongoose.model("Users",productSchema);

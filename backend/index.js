@@ -3,8 +3,10 @@ require("./config.js");
 const product = require("./users.js");
 const app = express();
 const cors = require("cors");
+const cron = require('node-cron');
 
 const sendOtpEmail = require('./otp.js');
+const sendmsg = require('./msg.js');
 
 //MiddelWares..
 app.use(express.json());
@@ -20,13 +22,14 @@ app.post("/user/signup", async (req, resp) => {
         let user = new product({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            isVerified: false,
         });
 
         // generate a 4-digit OTP
         const otp = Math.floor(1000 + Math.random() * 9000); // range 1000–9999
         user.otp = otp;
-        user.otpExpire = Date.now() + 5 * 60 * 1000; // valid for 5 minutes
+        user.otpExpire = Date.now() + 20 * 1000; // valid for 5 minutes
         console.log("Generated OTP:", otp);
 
         let result = await user.save();
@@ -39,6 +42,8 @@ app.post("/user/signup", async (req, resp) => {
 
         resp.status(201).send(user);
 
+
+
     } catch (err) {
         console.log(err);
         resp.status(500).send({ error: "Server Error !" });
@@ -48,6 +53,8 @@ app.post("/user/signup", async (req, resp) => {
 
 
 });
+
+
 
 app.post('/user/otp', async (req, res) => {
     try {
@@ -59,24 +66,48 @@ app.post('/user/otp', async (req, res) => {
 
         // Check OTP match
         if (user.otp !== Number(otp)) {
-            return res.status(400).send({ error: 'Invalid OTP!' });
+            return res.status(400).send({ error: 'Invalid OTP Or Expired !' });
         }
 
         // Check OTP expiry
         if (user.otpExpire < Date.now()) {
+            await product.deleteOne({ email }); //deletes unverified
             return res.status(400).send({ error: 'OTP expired!' });
         }
         // OTP valid
+        user.isVerified = true;
         user.otp = null;
         user.otpExpire = null;
         await user.save();
 
+        // send OTP Message
+        await sendmsg(req.body.email);
+
+
         res.status(200).send({ msg: 'OTP verified successfully!' });
+        //and hence otp verfied succesfully then we will send another mail for registration confirmation to user.
+
 
     } catch (err) {
         res.status(500).send({ error: 'Server error!' });
     }
 
 })
+
+cron.schedule('*/10 * * * * *', async () => {
+    try {
+        const now = Date.now();
+        const result = await product.deleteMany({
+            isVerified: false,
+            otpExpire: { $lt: now }   // delete only expired unverified users
+        });
+        if (result.deletedCount > 0) {
+            console.log(`Cleaned up ${result.deletedCount} expired users`);
+            localStorage.clear();
+        }
+    } catch (err) {
+        console.error('Error cleaning expired users:', err);
+    }
+});
 
 app.listen(5000);
