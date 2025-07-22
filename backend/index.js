@@ -29,7 +29,7 @@ app.post("/user/signup", async (req, resp) => {
         // generate a 4-digit OTP
         const otp = Math.floor(1000 + Math.random() * 9000); // range 1000–9999
         user.otp = otp;
-        user.otpExpire = Date.now() + 20 * 1000; // valid for 5 minutes
+        user.otpExpire = Date.now() + 5* 60 * 1000; // valid for 5 minutes
         console.log("Generated OTP:", otp);
 
         let result = await user.save();
@@ -94,7 +94,37 @@ app.post('/user/otp', async (req, res) => {
 
 })
 
-cron.schedule('*/10 * * * * *', async () => {
+
+//post method to save the coins send by data.js
+app.post("/user/coins/save",async (req,resp)=>{
+    
+    try{
+        const {savecoin,email}=req.body;
+        let user=await product.findOne({email});
+        if (!user) {   //not exists
+            return resp.status(400).send({error:"User Not Exists"});
+        }
+        // only push if not already in array
+        if(user.coins.includes(savecoin)){
+            return resp.status(404).send({error:"Coins is Already Saved"});
+        }
+
+         user.coins.push(savecoin);
+
+        await user.save();
+        return resp.status(200).send({msg:"saved"});
+
+    }catch (err){
+        return resp.status(500).send({erorr:"Server Error Report To User.."});
+
+    }
+
+
+})
+
+
+
+cron.schedule('*/5 * * * *', async () => {
     try {
         const now = Date.now();
         const result = await product.deleteMany({
@@ -103,7 +133,6 @@ cron.schedule('*/10 * * * * *', async () => {
         });
         if (result.deletedCount > 0) {
             console.log(`Cleaned up ${result.deletedCount} expired users`);
-            localStorage.clear();
         }
     } catch (err) {
         console.error('Error cleaning expired users:', err);

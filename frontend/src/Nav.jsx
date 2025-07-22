@@ -62,7 +62,7 @@ function Nav() {
                 <Link to="/user">
                   <h1>
                     {
-                      auth ? <i class="fa-solid fa-user-secret  mr-10 hover:text-white/40 transition-all cursor-pointer font-semibold text-4xl text-white"></i> : <i className=" mr-10 fa-solid hover:text-white/40 transition-all cursor-pointer fa-circle-user font-semibold text-4xl text-white"></i>
+                      auth ? <i class="fa-solid fa-user-secret  mr-10 hover:text-white/40 transition-all cursor-pointer font-semibold text-4xl text-white"></i> : <i className=" mr-10--+* fa-solid hover:text-white/40 transition-all cursor-pointer fa-circle-user font-semibold text-4xl text-white"></i>
 
                     }
                   </h1>

@@ -40,8 +40,8 @@ function Create() {
 
             if (resp.status === 201) {
                 console.log("Saved");
-                 localStorage.setItem('signupEmail', email);
-                 localStorage.setItem('user',JSON.stringify(result))
+                localStorage.setItem('signupEmail', email);
+                localStorage.setItem('user', JSON.stringify(result))
                 navigate("/user/otp");
                 return { msg: result.msg }
 
@@ -105,10 +105,7 @@ function Create() {
                             </div>
                         </form>
                     </div>
-
-
-
-
+                    
 
                     <div className=' flex justify-center items-center gap-3 mt-5'>
                         <h1 className=' text-gray-500 font-medium'>Already have an account?</h1>
