@@ -118,8 +118,21 @@ app.post("/user/coins/save",async (req,resp)=>{
         return resp.status(500).send({erorr:"Server Error Report To User.."});
 
     }
+})
 
+//The Get Method To Display The Saved Coins
+app.get("/user/coins/list",async (req,resp)=>{
+    try{
+        const email=req.headers.email;
+        const user=await product.findOne({email});
+        if(!user)return resp.status(404).send({error:"email not found"});
 
+        resp.status(200).json({coins:user.coins});
+
+    }catch (err){
+        return resp.status(500).send({error:"Server Error Report Developer"});
+
+    }
 })
 
 
