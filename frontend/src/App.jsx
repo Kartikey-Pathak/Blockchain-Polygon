@@ -51,17 +51,17 @@ function App() {
 
         <Route element={<Private />}>
 
-          <Route element={<Prices />} path='/prices' />
+          
           <Route element={<Data />} path='/prices/data' />
-          <Route element={<User />} path='/user' />
 
           <Route element={<List />} path='/user/list' />
           <Route element={<Otp />} path='/user/otp' />
 
         </Route>
         <Route element={<Otp />} path='/user/otp' />
-
+        <Route element={<User />} path='/user' />
         <Route element={<Create />} path='/user/create' />
+        <Route element={<Prices />} path='/prices' />
 
       </Routes>
     </div >

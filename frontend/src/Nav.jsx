@@ -27,7 +27,7 @@ function Nav() {
     handlesize();
 
     return () => window.removeEventListener("resize", handlesize);
-  }, [hover])
+  }, [])
   useEffect(() => {
     gsap.to(boxref.current, {
       opacity: 1,
@@ -42,37 +42,58 @@ function Nav() {
 
   }, [hover])
 
+  const logout=()=>{
+    localStorage.clear();
+     window.location.reload(); 
+  }
+
   return (
     <div>
       <nav>
-        <div className="bg-white/3 backdrop-blur-md w-full h-20 z-30 flex items-center fixed top-0 justify-between">
+        <div className="bg-white/5 backdrop-blur-md w-full max-w-screen h-20 z-30 flex items-center fixed top-0 justify-between">
           <Link to="/">
             <div className="h-10 w-36 m-3 flex justify-start items-center relative cursor-pointer">
-              <img src="https://cdn.prod.website-files.com/637359c81e22b715cec245ad/64db31746dec8ad339c4a315_logo-light-mode.svg" className=" h-10 w-auto z-10 absolute" alt="" />
+              <img src="https://cdn.prod.website-files.com/637359c81e22b715cec245ad/64db31746dec8ad339c4a315_logo-light-mode.svg" className=" h-10 w-full z-10 absolute" alt="" />
               <h1 className=" ml-12 font-medium text-2xl text-white absolute z-20">PolyDash</h1>
             </div>
           </Link>
+
           {!nav ?
-            <div className="m-10 flex-row flex">
+            <div className="m-10 flex-row flex items-center justify-center h-full w-[20rem]">
               {!menu ?
                 <i className="fa-solid order-2 fa-bars text-white text-3xl" onClick={() => showmenu(!menu)}></i> :
                 <i className="fa-solid order-2 fa-xmark text-white text-3xl" onClick={() => showmenu(!menu)}></i>
               }
-              <div className=" flex items-center justify-center">
-                <Link to="/user">
-                  <h1>
-                    {
-                      auth ? <i class="fa-solid fa-user-secret  mr-10 hover:text-white/40 transition-all cursor-pointer font-semibold text-4xl text-white"></i> : <i className=" mr-10--+* fa-solid hover:text-white/40 transition-all cursor-pointer fa-circle-user font-semibold text-4xl text-white"></i>
+              <div className=" flex items-center justify-center  w-32 h-12 ">
+                {
+                  auth ?<div className="flex items-center justify-center border-2 rounded-xl hover:bg-red-500 transition-all cursor-pointer border-gray-400 h-full w-20 bg-red-700">
+                          <h1 className=" text-white font-semibold text-[1rem]">Log-Out</h1>
+                        </div>
 
-                    }
-                  </h1>
-                </Link>
+                    :
+                    <div className="flex items-center justify-evenly w-full h-full  mr-20 flex-row order-1">
+                      <Link to="/user" className=" h-full">
+                        <div className="flex items-center justify-center border-2 rounded-xl hover:bg-white/70 transition-all cursor-pointer border-gray-400 h-full w-16 bg-white">
+                          <h1 className=" text-black font-semibold text-[1rem]">Log-In</h1>
+                        </div>
+                      </Link>
+
+                      <Link to="/user/create" className=" h-full m-4">
+                        <div className="flex items-center justify-center border-2 rounded-xl hover:bg-black/10 transition-all cursor-pointer border-black h-full w-16 bg-black">
+                          <h1 className=" text-white font-semibold text-[1rem]">Sign-Up</h1>
+                        </div>
+                      </Link>
+
+                    </div>
+                }
+
+
               </div>
             </div> :
-            <div className="flex flex-row justify-start items-center gap-10 mr-10">
+            <div className="flex flex-row justify-start items-center gap-10 ">
               {
                 arr.map((item, idx) => (
-                  <div className=" px-12 py-3 rounded-4xl hover:bg-white/20 cursor-pointer transition-all" onMouseEnter={() => sethover(idx)} onMouseLeave={() => sethover(null)} key={idx}>
+                  <div className=" h-12 md:w-20 lg:w-24 xl:w-40 flex items-center justify-center rounded-4xl hover:bg-white/20 cursor-pointer transition-all" onMouseEnter={() => sethover(idx)} onMouseLeave={() => sethover(null)} key={idx}>
                     <a href={mp[item]}><span className=" font-semibold text-[1.1rem]">{item}</span></a>
 
                     {/* {hover==idx?
@@ -83,14 +104,33 @@ function Nav() {
                   </div>
                 ))
               }
-              <Link to="/user">
-                <h1>
-                  {
-                    auth ? <i class="fa-solid fa-user-secret  hover:text-white/40 transition-all cursor-pointer font-semibold text-4xl text-white"></i> : <i className="fa-solid hover:text-white/40 transition-all cursor-pointer fa-circle-user font-semibold text-4xl text-white"></i>
 
-                  }
-                </h1>
-              </Link>
+
+              {
+                auth ?<div onClick={()=>{
+                  logout()
+                }} className="flex items-center justify-center rounded-xl hover:bg-red-500 transition-all cursor-pointer border-gray-400 m-5  h-10 w-24 bg-red-700">
+                          <h1 className=" text-white font-semibold text-[1rem]">Log-Out</h1>
+                        </div>
+
+                  :
+                  <div className="flex items-center justify-evenly   h-12 w-72 flex-row">
+                    <Link to="/user" className=" h-full">
+                      <div className="flex items-center justify-center border-2 rounded-xl hover:bg-white/70 transition-all cursor-pointer border-gray-400 h-full w-24 bg-white">
+                        <h1 className=" text-black font-semibold text-[1rem]">Log-In</h1>
+                      </div>
+                    </Link>
+
+                    <Link to="/user/create" className=" h-full">
+                      <div className="flex items-center justify-center border-2 rounded-xl hover:bg-black/10 transition-all cursor-pointer border-black h-full w-24 bg-black">
+                        <h1 className=" text-white font-semibold text-[1rem]">Sign-Up</h1>
+                      </div>
+                    </Link>
+
+                  </div>
+              }
+
+
 
             </div>
 

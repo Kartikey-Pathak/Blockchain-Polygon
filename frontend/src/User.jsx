@@ -1,31 +1,62 @@
 import { useState, useEffect, useActionState } from 'react';
 import { Link} from 'react-router-dom';
-function User() {
+import { useNavigate } from 'react-router-dom';
+function User() {   //The Login Page
 
     const [visible, setVisible] = useState(false);
+    const [msg,setmsg]=useState();
+
+      const navigate = useNavigate();
 
     const handleSubmit = async (prevdata, formdata) => {
         let name = formdata.get('name');
-        let pass = formdata.get('password');
+        let password = formdata.get('password');
 
-        await new Promise(res => setTimeout(res, 2000));
-
-        if (name && pass) {
-            return { msg: "Data Submiited", name, pass };
-        } else {
-            return { error: "Fill Both The Details..", name, pass };
+        if (!name || !password) {
+               return {error:"Fill Both Details"}
         }
+       
+         // Fetching the Api to Login
+         try{
+            let resp=await fetch("http://localhost:5000/user/login",{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({ name, password }),
+            })
+             const result = await resp.json();
+            
+             if(resp.status===400){
+                setmsg(result);
+             }
+             if(resp.status===401){
+                setmsg(result);
+             }
+             if(resp.status===200){
+                localStorage.setItem('signupEmail',result.signupEmail);
+                localStorage.setItem('user',result.user);
+
+                navigate('/');
+
+             }
+
+         }catch(error){
+
+         }
+
+
+        
     }
 
     const [data, action, pending] = useActionState(handleSubmit, null);
 
-    const [msg, Setmsg] = useState(false);
 
 
     return (
         <div className="">
             <div className='flex justify-center items-center h-screen'>
-                <div className='bg-white h-[35rem] w-[22rem] md:h-[36rem] md:w-[24rem] rounded-4xl lg:w-[27rem] xl:h-[38rem] xl:w-[28rem]'>        {/* h-[39rem] w-[29rem] */}
+                <div className='bg-white h-screen w-[22rem] md:h-[36rem] md:w-[24rem] rounded-4xl lg:w-[27rem] xl:h-[38rem] xl:w-[28rem]'>        {/* h-[39rem] w-[29rem] */}
                     <div className='flex justify-center mt-5'>
                         <h1 className=' font-bold text-4xl text-black'>Log-in</h1>
                     </div>
@@ -50,7 +81,7 @@ function User() {
                         </form>
                     </div>
 
-                    <div className=' flex justify-center items-center lg:mt-18 mt-15 md:mt-20 xl:mt-10 '>
+                    <div className=' flex justify-center items-center lg:mt-18 mt-8 md:mt-20 xl:mt-10 '>
                         <div role="alert" className={`alert alert-error fixed z-30 ${data?.msg ? "" : "hidden"} `}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="lg:h-7 lg:w-16 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -61,17 +92,17 @@ function User() {
 
                     <div className='flex justify-center items-center'>
                         {
-                            data?.msg ? <span ><h1 className='text-blue-400 '>{data?.msg}</h1></span> : null
+                            msg? <span className=' absolute z-[100]'><h1 className='text-red-500  '>{msg.error}</h1></span> : null
                         }
                         {
-                            data?.error ? <span><h1 className='text-red-500  '>{data?.error}</h1></span> : null
+                            data?.error &&<span className=' absolute z-[100]'><h1 className='text-red-500  '>{data.error}</h1></span>
                         }
                     </div>
 
                     <div className=' flex justify-center items-center gap-3'>
                         <h1 className=' text-gray-500 font-medium'>Don't have an account?</h1>
                         <Link to="/user/create">
-                        <a className=' text-blue-600 hover:text-blue-800 transition font-medium underline'>Sign up</a>
+                        <h1 className=' text-blue-600 hover:text-blue-800 transition font-medium underline'>Sign up</h1>
                         </Link>
                     </div>
                 </div>

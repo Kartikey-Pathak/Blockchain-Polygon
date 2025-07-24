@@ -31,7 +31,7 @@ function Otp() {
             })
             const result = await resp.json();
             if(resp.status===200){
-                navigate('/',{ replace: true });  //replaces history instead of adding
+                navigate('/');  //replaces history instead of adding   //,{ replace: true }
             }
             if(resp.status===400){
                 settxt("Invalid OTP !");

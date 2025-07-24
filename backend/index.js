@@ -7,6 +7,7 @@ const cron = require('node-cron');
 
 const sendOtpEmail = require('./otp.js');
 const sendmsg = require('./msg.js');
+const logmsg = require("./logmsg.js");
 
 //MiddelWares..
 app.use(express.json());
@@ -29,7 +30,7 @@ app.post("/user/signup", async (req, resp) => {
         // generate a 4-digit OTP
         const otp = Math.floor(1000 + Math.random() * 9000); // range 1000–9999
         user.otp = otp;
-        user.otpExpire = Date.now() + 5* 60 * 1000; // valid for 5 minutes
+        user.otpExpire = Date.now() + 5 * 60 * 1000; // valid for 5 minutes
         console.log("Generated OTP:", otp);
 
         let result = await user.save();
@@ -96,42 +97,83 @@ app.post('/user/otp', async (req, res) => {
 
 
 //post method to save the coins send by data.js
-app.post("/user/coins/save",async (req,resp)=>{
-    
-    try{
-        const {savecoin,email}=req.body;
-        let user=await product.findOne({email});
+app.post("/user/coins/save", async (req, resp) => {
+
+    try {
+        const { savecoin, email } = req.body;
+        let user = await product.findOne({ email });
         if (!user) {   //not exists
-            return resp.status(400).send({error:"User Not Exists"});
+            return resp.status(400).send({ error: "User Not Exists" });
         }
         // only push if not already in array
-        if(user.coins.includes(savecoin)){
-            return resp.status(404).send({error:"Coins is Already Saved"});
+        if (user.coins.includes(savecoin)) {
+            return resp.status(404).send({ error: "Coins is Already Saved" });
         }
 
-         user.coins.push(savecoin);
+        user.coins.push(savecoin);
 
         await user.save();
-        return resp.status(200).send({msg:"saved"});
+        return resp.status(200).send({ msg: "saved" });
 
-    }catch (err){
-        return resp.status(500).send({erorr:"Server Error Report To User.."});
+    } catch (err) {
+        return resp.status(500).send({ erorr: "Server Error Report To User.." });
 
     }
 })
 
 //The Get Method To Display The Saved Coins
-app.get("/user/coins/list",async (req,resp)=>{
-    try{
-        const email=req.headers.email;
-        const user=await product.findOne({email});
-        if(!user)return resp.status(404).send({error:"email not found"});
+app.get("/user/coins/list", async (req, resp) => {
+    try {
+        const email = req.headers.email;
+        const user = await product.findOne({ email });
+        if (!user) return resp.status(404).send({ error: "email not found" });
 
-        resp.status(200).json({coins:user.coins});
+        resp.status(200).json({ coins: user.coins });
 
-    }catch (err){
-        return resp.status(500).send({error:"Server Error Report Developer"});
+    } catch (err) {
+        return resp.status(500).send({ error: "Server Error Report Developer" });
 
+    }
+})
+//The Delete api to remove coins from saved List
+app.get("/user/coins/list/del", async (req, resp) => {
+    try {
+        const coinid = req.headers.coinid;
+        const email = req.headers.email;
+        const user = await product.findOne({ email });
+        if (!user) return resp.status(404).send({ error: "email not found" });
+
+        user.coins.pull(coinid);
+        await user.save();
+
+        return resp.status(200).send({ msg: "Removed Successfully" });
+
+    } catch {
+        return resp.status(500).send({ error: "Server Error Report Developer" });
+    }
+})
+//The Login Route 
+app.post("/user/login", async (req, resp) => {
+    try {
+        let name = req.body.name;
+        let password = req.body.password;
+        let user = await product.findOne({ name });
+        if (!user) {
+            return resp.status(400).send({ error: 'User not found!' });
+        }
+        // Check password
+        if (password !== user.password) {
+            return resp.status(401).send({ error: "Invalid password!" });
+        }
+        let signupEmail = user.email;
+        if (password === user.password) {
+            // send Login email
+            await logmsg(user.email,user.name);
+            return resp.status(200).send({ user, signupEmail });
+        }
+
+    } catch (error) {
+        return resp.status(500).send({ error: "Server Error Report To Developer" });
     }
 })
 
