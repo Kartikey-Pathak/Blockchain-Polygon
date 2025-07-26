@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Suspense, lazy } from 'react'
 
 import './App.css'
 import Nav from './Nav'
@@ -12,19 +13,33 @@ import ScrolVisuals from './ScrolVisuals'
 import End from './End'
 import Foot from './Foot'
 import { Route, Routes } from 'react-router-dom'
-import Prices from './Prices'
-import Data from './Data'
-import User from './User'
-import Create from './Create'
-import List from './List'
-import Otp from './Components/Otp'
-import Private from './Components/Private'
-import Otpreset from './Components/Otpreset'
-import Forget from './Forget'
+// import Prices from './Prices'
+// import Data from './Data'
+// import User from './User'
+// import Create from './Create'
+// import List from './List'
+// import Otp from './Components/Otp'
+// import Private from './Components/Private'
+// import Otpreset from './Components/Otpreset'
+// import Forget from './Forget'
+
+
+// Lazy-load route components:
+const Prices = lazy(() => import('./Prices'))
+const Data = lazy(() => import('./Data'))
+const User = lazy(() => import('./User'))
+const Create = lazy(() => import('./Create'))
+const List = lazy(() => import('./List'))
+const Otp = lazy(() => import('./Components/Otp'))
+const Private = lazy(() => import('./Components/Private'))
+const Otpreset = lazy(() => import('./Components/Otpreset'))
+const Forget = lazy(() => import('./Forget'))
+
 
 function App() {
   return (
     <div className=' bg-black min-h-screen w-full max-w-screen relative'>
+      <Suspense fallback={<div className="text-white p-4">Loading…</div>}>
       <Routes>
         <Route
           path='/'
@@ -65,11 +80,12 @@ function App() {
         <Route element={<Create />} path='/user/create' />
         <Route element={<Prices />} path='/prices' />
         <Route element={<Otp />} path='/user/otp' />
-        <Route element={<Otpreset/>} path='/user/otp/reset' />
-         <Route element={<Forget/>} path='/user/forget' />
+        <Route element={<Otpreset />} path='/user/otp/reset' />
+        <Route element={<Forget />} path='/user/forget' />
 
 
       </Routes>
+      </Suspense>
     </div >
   )
 }
