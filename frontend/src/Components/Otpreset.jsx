@@ -23,7 +23,7 @@ function Otpreset() {
     const verify = async () => {
         let name=localStorage.getItem('name');
         try {
-            const resp = await fetch('http://localhost:5000/user/otp/reset', {
+            const resp = await fetch('https://blockchain-polygon.onrender.com/otp/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
