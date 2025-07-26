@@ -25,7 +25,7 @@ function Otp() {
     const verify = async () => {
         setLoading(true); // disable button & show text
         try {
-            const resp = await fetch('http://localhost:5000/user/otp', {
+            const resp = await fetch('https://blockchain-polygon.onrender.com/user/otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
