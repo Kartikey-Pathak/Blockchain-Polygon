@@ -15,6 +15,10 @@ const deletemsg = require("./deletemsg.js");
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running!");
+});
+
 app.post("/user/signup", async (req, resp) => {
     try {
         let exist = await product.findOne({ name: req.body.name });
