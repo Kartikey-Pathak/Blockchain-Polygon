@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 function Otpreset() {
     const [otp, setOtp] = useState('');
     const [email, setEmail] = useState();
-    const [txt,settxt]=useState();
+    const [txt, settxt] = useState();
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -21,26 +22,29 @@ function Otpreset() {
     }, []);
 
     const verify = async () => {
-        let name=localStorage.getItem('name');
+        setLoading(true); // disable button & show text
+        let name = localStorage.getItem('name');
         try {
             const resp = await fetch('https://blockchain-polygon.onrender.com/otp/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({otp,name}),
+                body: JSON.stringify({ otp, name }),
             })
             const result = await resp.json();
-            if(resp.status===200){
+            if (resp.status === 200) {
                 navigate('/user/forget');  //replaces history instead of adding   //,{ replace: true }
             }
-            if(resp.status===400){
+            if (resp.status === 400) {
                 settxt("Invalid OTP !");
 
             }
             console.log(result);
         } catch (err) {
             console.log(err)
+        } finally {
+            setLoading(false); // enable button back
         }
 
     }
@@ -68,13 +72,13 @@ function Otpreset() {
             <div className=" flex items-center flex-col h-[120vw] max-h-[35rem] md:max-h-[36rem] md:h-[70vw] w-[90%] md:w-[40%] bg-gray-800 rounded-4xl gap-20">
                 <h1 className=" text-4xl font-semibold text-white mt-5">Verify Email</h1>
 
-                <form action="" onSubmit={(e)=>{
-                    e.preventDefault(); 
+                <form action="" onSubmit={(e) => {
+                    e.preventDefault();
                     verify();
                 }} className=" flex items-center justify-center flex-col w-full mt-10">
-                    <input ref={inputRef}  onChange={(e) => setOtp(e.target.value)} type="number" id="txt" onClick={() => { handleClick(); setClick(!click); }} className=" cursor-pointer hover:border-white/20 transition-all outline-none w-[60%] text-2xl text-center border-4 border-white rounded-2xl p-2" placeholder="Enter OTP" />
+                    <input ref={inputRef} onChange={(e) => setOtp(e.target.value)} type="number" id="txt" onClick={() => { handleClick(); setClick(!click); }} className=" cursor-pointer hover:border-white/20 transition-all outline-none w-[60%] text-2xl text-center border-4 border-white rounded-2xl p-2" placeholder="Enter OTP" />
 
-                    <button className=" p-6 bg-black rounded-2xl px-20 font-semibold text-xl mt-20 hover:bg-black/60 cursor-pointer transition-all">Verify</button>
+                    <button disabled={loading} className=" p-6 bg-black rounded-2xl px-20 font-semibold text-xl mt-20 hover:bg-black/60 cursor-pointer transition-all"> {loading ? 'Verifying...' : 'Verify'}</button>
                 </form>
                 {
                     <span className=" mt-10 text-sm font-semibold text-red-500">{txt}</span>

@@ -12,6 +12,7 @@ function Nav() {
   const [menu, showmenu] = useState(false)
   const [nav, setnav] = useState(window.innerWidth > 1000);
   const [hover, sethover] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   let auth = localStorage.getItem("user");
 
@@ -42,9 +43,11 @@ function Nav() {
 
   }, [hover])
 
-  const logout=()=>{
+  const logout = () => {
+     setLoading(true); 
     localStorage.clear();
-     window.location.reload(); 
+    setLoading(false);
+    window.location.reload();
   }
 
   return (
@@ -66,9 +69,11 @@ function Nav() {
               }
               <div className=" flex items-center justify-center  w-32 h-12 ">
                 {
-                  auth ?<div className="flex items-center justify-center border-2 rounded-xl hover:bg-red-500 transition-all cursor-pointer border-gray-400 h-full w-20 bg-red-700">
-                          <h1 className=" text-white font-semibold text-[1rem]">Log-Out</h1>
-                        </div>
+                  auth ? <div onClick={() => {
+                    logout()
+                  }} className={`flex items-center justify-center border-2 rounded-xl ${loading?"bg-red-500":"bg-red-700"} hover:bg-red-500 transition-all cursor-pointer border-gray-400 h-full w-20 bg-red-700`}>
+                    <h1 className=" text-white font-semibold text-[1rem]">Log-Out</h1>
+                  </div>
 
                     :
                     <div className="flex items-center justify-evenly w-full h-full  mr-20 flex-row order-1">
@@ -107,11 +112,11 @@ function Nav() {
 
 
               {
-                auth ?<div onClick={()=>{
+                auth ? <div onClick={() => {
                   logout()
-                }} className="flex items-center justify-center rounded-xl hover:bg-red-500 transition-all cursor-pointer border-gray-400 m-5  h-10 w-24 bg-red-700">
-                          <h1 className=" text-white font-semibold text-[1rem]">Log-Out</h1>
-                        </div>
+                }} className={`flex items-center justify-center rounded-xl ${loading?"bg-red-500":"bg-red-700"} hover:bg-red-500 transition-all cursor-pointer border-gray-400 m-5  h-10 w-24 `}>
+                  <h1 className=" text-white font-semibold text-[1rem]">Log-Out</h1>
+                </div>
 
                   :
                   <div className="flex items-center justify-evenly   h-12 w-72 flex-row">

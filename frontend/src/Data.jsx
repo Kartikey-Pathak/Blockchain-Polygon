@@ -11,10 +11,12 @@ function Data() {
     const [low, high] = useState()
     const [msg, setmsg] = useState();
     const [errmsg, seterrmsg] = useState();
+    const [loading, setLoading] = useState(false);
 
     const coin = location.state;
 
     const handlesubmit = async (savecoin) => {
+        setLoading(true); // disable button & show text
         let email = localStorage.getItem('signupEmail');
         try {
             let resp = await fetch("https://blockchain-polygon.onrender.com/user/coins/save", {
@@ -36,7 +38,10 @@ function Data() {
             console.log("Problem Occured ,Server Error", err);
             seterrmsg("Server Error Report To User.");
 
+        } finally {
+            setLoading(false); // enable button back
         }
+
     }
 
     //Play Animation for the message
@@ -119,8 +124,8 @@ function Data() {
                                 </div>
 
                                 {/* Save Button */}
-                                <div onClick={() => { handlesubmit(coin.id) }} className=' w-[30vw] max-w-[15rem] bg-green-600 flex items-center justify-center py-3 rounded-4xl hover:bg-green-800 hover:scale-95 transition-all cursor-pointer'>
-                                    <h1 className=' text-xl font-semibold text-white'>Save</h1>
+                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[30vw] max-w-[15rem] ${loading?"bg-green-800":"bg-green-600"} flex items-center justify-center py-3 rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
+                                    <h1 className=' text-xl font-semibold text-white'>{loading ? 'Saving...' : 'Save'}</h1>
                                 </div>
                                 <br />
 
@@ -153,7 +158,7 @@ function Data() {
                 </div> : null
             }
             {/* If Any Server Occurs */}
-            {errmsg?
+            {errmsg ?
                 <div className=' flex justify-center items-center absolute bottom-135 md:bottom-60 z-[100] left-0 right-0'>
                     <div role="alert" className="alert alert-error">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
