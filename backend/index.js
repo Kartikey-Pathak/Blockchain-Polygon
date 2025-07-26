@@ -272,10 +272,10 @@ app.delete("/user/delete", async (req, resp) => {
         if (!user) {
             resp.status(400).send({ error: "User Didn't Found" });
         }
-         // send Delete email
+        // send Delete email
         await deletemsg(email);
         await user.deleteOne();
-        
+
         resp.status(200).send({ msg: "Success" });
     } catch (err) {
         resp.status(500).send({ error: "Server Error Report Developer" });
@@ -300,4 +300,7 @@ cron.schedule('*/5 * * * *', async () => {
     }
 });
 
-app.listen(5000);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`);
+});

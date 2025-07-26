@@ -39,7 +39,7 @@ const Forget = lazy(() => import('./Forget'))
 function App() {
   return (
     <div className=' bg-black min-h-screen w-full max-w-screen relative'>
-      <Suspense fallback={<div className="text-white p-4">Loading…</div>}>
+      <Suspense fallback={<div className="text-black flex items-center justify-center font-semibold p-4">Loading…</div>}>
       <Routes>
         <Route
           path='/'
