@@ -20,7 +20,7 @@ function User() {   //The Login Page
 
         // Fetching the Api to Login
         try {
-            let resp = await fetch("http://localhost:5000/user/login", {
+            let resp = await fetch("https://blockchain-polygon.onrender.com/user/login", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function User() {   //The Login Page
     if(!user){
         return setredmsg("First Fill User Name");
     }
-    let resp=await fetch("http://localhost:5000/user/logout",{
+    let resp=await fetch("https://blockchain-polygon.onrender.com/user/logout",{
           method: 'POST',
         headers:{
             'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ function Forget() {   //The Login Page
 
         // Fetching the Api to Login
         try {
-            let resp = await fetch("http://localhost:5000/user/forget", {
+            let resp = await fetch("https://blockchain-polygon.onrender.com/user/forget", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

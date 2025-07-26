@@ -28,7 +28,7 @@ function Create() {
 
         // Fetching the Api to save user data
         try {
-            let resp = await fetch("http://localhost:5000/user/signup", {
+            let resp = await fetch("https://blockchain-polygon.onrender.com/user/signup", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

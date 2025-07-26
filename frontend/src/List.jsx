@@ -21,7 +21,7 @@ function List() {
         const handlecoin = async () => {
             try {
                 setload(true);
-                let resp = await fetch("http://localhost:5000/user/coins/list", {
+                let resp = await fetch("https://blockchain-polygon.onrender.com/user/coins/list", {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -98,7 +98,7 @@ function List() {
 
     const deleteCoin = async (id) => {
         try {
-            let resp = await fetch("http://localhost:5000/user/coins/list/del", {
+            let resp = await fetch("https://blockchain-polygon.onrender.com/user/coins/list/del", {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -126,7 +126,7 @@ function List() {
     //    delete the Account
     const deleteuser = async () => {
         try {
-            let resp = await fetch("http://localhost:5000/user/delete", {
+            let resp = await fetch("https://blockchain-polygon.onrender.com/user/delete", {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
