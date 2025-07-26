@@ -112,7 +112,7 @@ function List() {
             }
             if (resp.status === 200) {
                 setmsg("Removed Successfully...");
-                window.location.reload();
+                setcoins(prevCoins => prevCoins.filter(c => c.id !== id));
             }
 
 
@@ -165,7 +165,7 @@ function List() {
                     <h1 className=" text-4xl md:text-5xl text-white/50 font-semibold">No Saved Coins Yet</h1>
                     <i className="fa-solid fa-ban font-semibold text-8xl text-white/50"></i>
                 </div> :
-            
+
                 load ?
                     <div className=" flex items-center justify-center h-full md:h-screen md:flex-row flex-col">
 

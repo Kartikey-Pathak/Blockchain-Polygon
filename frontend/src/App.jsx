@@ -18,7 +18,7 @@ import { useEffect } from 'react'
 // import Data from './Data'
 // import User from './User'
 // import Create from './Create'
-import List from './List'
+// import List from './List'
 // import Otp from './Components/Otp'
 // import Private from './Components/Private'
 // import Otpreset from './Components/Otpreset'
@@ -30,7 +30,7 @@ const Prices = lazy(() => import('./Prices'))
 const Data = lazy(() => import('./Data'))
 const User = lazy(() => import('./User'))
 const Create = lazy(() => import('./Create'))
-// const List = lazy(() => import('./List'))
+const List = lazy(() => import('./List'))
 const Otp = lazy(() => import('./Components/Otp'))
 const Private = lazy(() => import('./Components/Private'))
 const Otpreset = lazy(() => import('./Components/Otpreset'))
