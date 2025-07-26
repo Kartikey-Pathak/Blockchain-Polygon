@@ -2,6 +2,7 @@ const express = require("express");
 require("./config.js");
 const product = require("./users.js");
 const app = express();
+const path = require('path');
 const cors = require("cors");
 const cron = require('node-cron');
 
@@ -16,8 +17,18 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("✅ Backend is running!");
+    res.send("✅ Backend is running!");
 });
+
+
+// serve frontend
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// fallback: always return index.html for React Router
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
 
 app.post("/user/signup", async (req, resp) => {
     try {
