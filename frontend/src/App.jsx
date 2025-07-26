@@ -19,6 +19,8 @@ import Create from './Create'
 import List from './List'
 import Otp from './Components/Otp'
 import Private from './Components/Private'
+import Otpreset from './Components/Otpreset'
+import Forget from './Forget'
 
 function App() {
   return (
@@ -51,17 +53,21 @@ function App() {
 
         <Route element={<Private />}>
 
-          
+
           <Route element={<Data />} path='/prices/data' />
 
           <Route element={<List />} path='/user/list' />
-          <Route element={<Otp />} path='/user/otp' />
+
 
         </Route>
         <Route element={<Otp />} path='/user/otp' />
         <Route element={<User />} path='/user' />
         <Route element={<Create />} path='/user/create' />
         <Route element={<Prices />} path='/prices' />
+        <Route element={<Otp />} path='/user/otp' />
+        <Route element={<Otpreset/>} path='/user/otp/reset' />
+         <Route element={<Forget/>} path='/user/forget' />
+
 
       </Routes>
     </div >

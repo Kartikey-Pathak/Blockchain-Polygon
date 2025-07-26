@@ -8,6 +8,8 @@ const cron = require('node-cron');
 const sendOtpEmail = require('./otp.js');
 const sendmsg = require('./msg.js');
 const logmsg = require("./logmsg.js");
+const resetotp = require("./resetotp.js");
+const deletemsg = require("./deletemsg.js");
 
 //MiddelWares..
 app.use(express.json());
@@ -168,13 +170,117 @@ app.post("/user/login", async (req, resp) => {
         let signupEmail = user.email;
         if (password === user.password) {
             // send Login email
-            await logmsg(user.email,user.name);
+            await logmsg(user.email, user.name);
             return resp.status(200).send({ user, signupEmail });
         }
 
     } catch (error) {
         return resp.status(500).send({ error: "Server Error Report To Developer" });
     }
+})
+
+//The Logout Route
+app.post("/user/logout", async (req, resp) => {
+    try {
+        let name = req.body.user;
+        let user = await product.findOne({ name });
+        if (!user) {
+            return resp.status(400).send({ error: "User Not Found" });
+        }
+        user.isVerified = false;
+        let email = user.email;
+
+        // generate a 4-digit OTP
+        const otp = Math.floor(1000 + Math.random() * 9000); // range 1000–9999
+        user.otp = otp;
+        user.otpExpire = Date.now() + 5 * 60 * 1000; // valid for 5 minutes
+        console.log("Generated OTP:", otp);
+        let result = await user.save();
+
+        // send OTP email
+        await resetotp(email, otp);
+
+        resp.status(200).send({ msg: "Success" });
+
+
+
+
+
+    } catch (err) {
+        resp.status(500).send({ error: "Server Error" });
+
+    }
+})
+
+//the reset otp route 
+
+app.post('/user/otp/reset', async (req, res) => {
+    try {
+        const { otp, name } = req.body;
+        const user = await product.findOne({ name });
+        if (!user) {
+            return res.status(400).send({ error: 'User not found!' });
+        }
+
+        // Check OTP match
+        if (user.otp !== Number(otp)) {
+            return res.status(400).send({ error: 'Invalid OTP Or Expired !' });
+        }
+
+        // Check OTP expiry
+        if (user.otpExpire < Date.now()) {
+            await product.deleteOne({ email }); //deletes unverified
+            return res.status(400).send({ error: 'OTP expired!' });
+        }
+        // OTP valid
+        user.isVerified = true;
+        user.otp = null;
+        user.otpExpire = null;
+        await user.save();
+
+        res.status(200).send({ msg: 'OTP verified successfully!' });
+        //and hence otp verfied succesfully then we will send another mail for registration confirmation to user.
+
+
+    } catch (err) {
+        res.status(500).send({ error: 'Server error!' });
+    }
+})
+
+//the user change password route
+
+app.post("/user/forget", async (req, resp) => {
+    try {
+        let { password1, name } = req.body;
+        let user = await product.findOne({ name });
+        if (!user) {
+            resp.status(400).send({ error: "User Didn't Found" });
+        }
+        user.password = password1;
+        let result = await user.save();
+        resp.status(200).send({ msg: "Success" });
+    } catch (err) {
+        resp.status(500).send({ error: "Server Error Report Developer" });
+    }
+})
+
+//the delete account route
+app.delete("/user/delete", async (req, resp) => {
+    try {
+        let email = req.headers.email;
+        let user = await product.findOne({ email });
+        if (!user) {
+            resp.status(400).send({ error: "User Didn't Found" });
+        }
+         // send Delete email
+        await deletemsg(email);
+        await user.deleteOne();
+        
+        resp.status(200).send({ msg: "Success" });
+    } catch (err) {
+        resp.status(500).send({ error: "Server Error Report Developer" });
+    }
+
 })
 
 
