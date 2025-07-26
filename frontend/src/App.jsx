@@ -13,6 +13,7 @@ import ScrolVisuals from './ScrolVisuals'
 import End from './End'
 import Foot from './Foot'
 import { Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
 // import Prices from './Prices'
 // import Data from './Data'
 // import User from './User'
@@ -37,6 +38,13 @@ const Forget = lazy(() => import('./Forget'))
 
 
 function App() {
+  useEffect(()=>{
+    let user=localStorage.getItem('signupEmail');
+    if(!user){
+      localStorage.clear();
+      window.location.reload();
+    }
+  },[])
   return (
     <div className=' bg-black min-h-screen w-full max-w-screen relative'>
       <Suspense fallback={<div className="text-black flex items-center justify-center font-semibold p-4">Loading…</div>}>
