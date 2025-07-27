@@ -47,10 +47,10 @@ function GetPrice({msg}) {
                                 <img className=" object-cover md:size-7 size-6" src={data.image} alt="" />
                                 <h1 className=" font-medium md:text-[1.2rem]">{idx + 1}</h1>
                             </div>
-                            <h1 className=" font-semibold text-sm md:text-[1.3rem] flex justify-center text-center whitespace-nowrap">{data.name.length >= 10 ? data.name.substring(0, 10) + '...' : data.name}</h1>
-                            <h1 className=" font-bold text-sm md:text-xl flex justify-center text-center">₹{data.current_price}</h1>
+                            <h1 className=" font-medium text-[1.19rem] md:text-[1.3rem] flex justify-center text-center whitespace-nowrap">{data.name.length >= 10 ? data.name.substring(0, 10) + '...' : data.name}</h1>
+                            <h1 className="  font-medium text-[1.19rem] md:text-xl flex justify-center text-center">₹{data.current_price}</h1>
                             {/* <h1 className="text-sm md:text-xl flex justify-center text-center">{Math.round(data.price_change_percentage_24h)}%</h1> */}
-                            <h1 className="text-sm md:text-xl text-center flex justify-center">{Math.round(data.market_cap_change_percentage_24h)}%</h1>
+                            <h1 className="text-[1.19rem] font-medium md:text-xl text-center flex justify-center">{Math.round(data.market_cap_change_percentage_24h)}%</h1>
                         </div></Link>
                     ))
                 : <div className=" flex items-center justify-center mt-20"><span className="loading loading-infinity loading-xl"></span></div>
