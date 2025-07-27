@@ -5,7 +5,7 @@ import Foot from "./Foot";
 import { Link } from 'react-router-dom';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GetPrice from "./GetPrice";
 import MyCoinsBtn from "./Components/MyCoinsBtn";
@@ -19,6 +19,9 @@ gsap.registerPlugin(ScrollTrigger);
 function Prices() {
     const titleref = useRef(null);
     const heroref = useRef(null);
+    const inputref=useRef();
+    const [input,setinput]=useState();
+    const [msg,setmsg]=useState();
 
     useGSAP(() => {
         gsap.from(titleref.current, {
@@ -65,8 +68,8 @@ function Prices() {
                     </div>
                     {/* Search And Button */}
                     <div className=" flex flex-row w-full max-w-screen justify-center gap-1 items-center mt-10">
-                        <input type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name="" />
-                        <label htmlFor="inp"><button className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button></label>
+                        <input onChange={(e)=>setinput(e.target.value)} ref={inputref} onKeyDown={(e)=>{if(e.key==='Enter'){setmsg(input)}}}  type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name="" />
+                        <label htmlFor="inp"><button onClick={()=>{setmsg(input)}}  className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button></label>
                     </div>
 
                     {/* The Hero Price Part */}
@@ -84,7 +87,7 @@ function Prices() {
 
                             <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl md:mr-3 lg:ml-6">Market cap</h1>
                         </div>
-                        <GetPrice />
+                        <GetPrice msg={msg} />
                     </div>
 
 
