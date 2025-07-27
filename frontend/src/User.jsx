@@ -6,7 +6,7 @@ function User() {   //The Login Page
     const [visible, setVisible] = useState(false);
     const [msg, setmsg] = useState();
     const [redmsg, setredmsg] = useState();
-    const [user,setname]=useState();
+    const [user, setname] = useState();
     const navigate = useNavigate();
 
     const handleSubmit = async (prevdata, formdata) => {
@@ -29,11 +29,8 @@ function User() {   //The Login Page
             })
             const result = await resp.json();
 
-            if (resp.status === 400) {
-                setmsg(result);
-            }
-            if (resp.status === 401) {
-                setmsg(result);
+            if (resp.status === 400 || resp.status === 401 || resp.status === 500) {
+                setmsg(result.error || "An unknown error occurred.");
             }
             if (resp.status === 200) {
                 localStorage.setItem('signupEmail', result.signupEmail);
@@ -49,22 +46,22 @@ function User() {   //The Login Page
         }
     }
 
-    const forget=async()=>{
-    if(!user){
-        return setredmsg("First Fill User Name");
-    }
-    let resp=await fetch("https://blockchain-polygon.onrender.com/user/logout",{
-          method: 'POST',
-        headers:{
-            'Content-Type': 'application/json',
-        },
-         body: JSON.stringify({user}),
-    })
-    let result=await resp.json();
-    if(resp.status===200){
-        localStorage.setItem('name',user);
-        navigate('/user/otp/reset');
-    }
+    const forget = async () => {
+        if (!user) {
+            return setredmsg("First Fill User Name");
+        }
+        let resp = await fetch("https://blockchain-polygon.onrender.com/user/logout", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user }),
+        })
+        let result = await resp.json();
+        if (resp.status === 200) {
+            localStorage.setItem('name', user);
+            navigate('/user/otp/reset');
+        }
 
     }
 
@@ -84,21 +81,21 @@ function User() {   //The Login Page
                         <form action={action}>
                             <div className='flex justify-center items-center gap-3'>
                                 <label htmlFor="user"><i class="fa-solid fa-user text-xl text-black"></i></label>
-                                <input type="text" onChange={(e)=>{setname(e.target.value)}} defaultValue={data?.name} id='user' name='name' className=' text-xl lg:text-2xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-blue-700 placeholder-black' placeholder='Enter Name' />
+                                <input type="text" onChange={(e) => { setname(e.target.value) }} defaultValue={data?.name} id='user' name='name' className=' text-xl lg:text-2xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-blue-700 placeholder-black' placeholder='Enter Name' />
                             </div>
                             <div className='flex justify-center items-center gap-3 mt-30 relative'>
                                 <label htmlFor="user"><i class="fa-solid fa-lock text-xl text-black"></i></label>
                                 <input type={visible ? "text" : "password"} defaultValue={data?.pass} id='pass' name='password' className=' lg:text-2xl text-xl border-b-2 border-b-black h-9 w-70 text-black focus:outline-none focus:border-red-700 placeholder-black' placeholder='Password' />
                                 <i onClick={() => setVisible(!visible)} className={`fa-solid ${visible ? "fa-eye-slash" : "fa-eye"}  absolute right-1 text-xl text-gray-600 cursor-pointer hover:text-gray-900 transition`}></i>
                             </div>
-                            
+
                             <div className=' flex items-center justify-center mt-1'>
-                            <div className=' absolute z-[100] mt-10 flex justify-center items-center gap-1'>
-                                <h1 className=' text-gray-500 font-medium'>Didn't Remember Paswword?</h1>
-                                <div>
-                                    <h1 onClick={()=>{forget()}} className=' text-blue-600 hover:text-blue-800 transition font-medium underline'>Forget?</h1>
+                                <div className=' absolute z-[100] mt-10 flex justify-center items-center gap-1'>
+                                    <h1 className=' text-gray-500 font-medium'>Didn't Remember Paswword?</h1>
+                                    <div>
+                                        <h1 onClick={() => { forget() }} className=' text-blue-600 hover:text-blue-800 transition font-medium underline'>Forget?</h1>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
 
                             {/* Submission button */}
@@ -120,7 +117,7 @@ function User() {   //The Login Page
 
                     <div className='flex justify-center items-center'>
                         {
-                            msg ? <span className=' absolute z-[100]'><h1 className='text-red-500  '>{msg.error}</h1></span> : null
+                            msg ? <span className=' absolute z-[100]'><h1 className='text-red-500  '>{msg}</h1></span> : null
                         }
                         {
                             data?.error && <span className=' absolute z-[100]'><h1 className='text-red-500  '>{data.error}</h1></span>
@@ -128,6 +125,7 @@ function User() {   //The Login Page
                         {
                             redmsg && <span className=' absolute z-[100]'><h1 className='text-red-500  '>{redmsg}</h1></span>
                         }
+                      
                     </div>
 
                     <div className=' flex justify-center items-center gap-3'>

@@ -25,7 +25,7 @@ function Otpreset() {
         setLoading(true); // disable button & show text
         let name = localStorage.getItem('name');
         try {
-            const resp = await fetch('https://blockchain-polygon.onrender.com/otp/reset', {
+            const resp = await fetch('https://blockchain-polygon.onrender.com/user/otp/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ function Otpreset() {
                     e.preventDefault();
                     verify();
                 }} className=" flex items-center justify-center flex-col w-full mt-10">
-                    <input ref={inputRef} onChange={(e) => setOtp(e.target.value)} type="number" id="txt" onClick={() => { handleClick(); setClick(!click); }} className=" cursor-pointer hover:border-white/20 transition-all outline-none w-[60%] text-2xl text-center border-4 border-white rounded-2xl p-2" placeholder="Enter OTP" />
+                    <input ref={inputRef} onChange={(e) => setOtp(e.target.value)} type="number" id="txt" onClick={() => { handleClick(); setclick(!click); }} className=" cursor-pointer hover:border-white/20 transition-all outline-none w-[60%] text-2xl text-center border-4 border-white rounded-2xl p-2" placeholder="Enter OTP" />
 
                     <button disabled={loading} className=" p-6 bg-black rounded-2xl px-20 font-semibold text-xl mt-20 hover:bg-black/60 cursor-pointer transition-all"> {loading ? 'Verifying...' : 'Verify'}</button>
                 </form>

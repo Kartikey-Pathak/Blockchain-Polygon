@@ -147,7 +147,7 @@ function Data() {
                                 </div>
 
                                 {/* Save Button */}
-                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[30vw] max-w-[15rem] ${loading ? "bg-green-800" : "bg-green-600"} flex items-center justify-center py-3 rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
+                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[30vw] h-12 max-w-[15rem] ${loading ? "bg-green-800" : "bg-green-600"} flex items-center justify-center  rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
                                     <h1 className=' text-xl font-semibold text-white'>{loading ? 'Saving...' : 'Save'}</h1>
                                 </div>
                                 <br />
