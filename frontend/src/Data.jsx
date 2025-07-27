@@ -147,7 +147,7 @@ function Data() {
                                 </div>
 
                                 {/* Save Button */}
-                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[30vw] h-12 max-w-[15rem] ${loading ? "bg-green-800" : "bg-green-600"} flex items-center justify-center  rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
+                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[35vw] h-12 max-w-[17rem] absolute bottom-150 z-[10] lg:bottom-10 ${loading ? "bg-green-800" : "bg-green-600"} flex items-center justify-center  rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
                                     <h1 className=' text-xl font-semibold text-white'>{loading ? 'Saving...' : 'Save'}</h1>
                                 </div>
                                 <br />
@@ -160,7 +160,7 @@ function Data() {
 
                         {/* graph */}
                         {chartdata?
-                        <div className="md:w-[90%] w-[90%] md:h-[25rem] h-[16rem] order-1 flex items-center justify-center rounded-4xl  bg-white/90">
+                        <div className="md:w-[90%] w-[90%] md:h-[25rem] h-[16rem] mt-20 lg:mt-0 order-1 flex items-center justify-center rounded-4xl  bg-white/90">
                           <Chartdisplay chartdata={chartdata}/>
                           </div>
                         :
