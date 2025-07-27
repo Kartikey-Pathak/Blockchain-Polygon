@@ -21,7 +21,7 @@ async function sendmsg(toEmail) {
 
 We are delighted to welcome you to our community. You can now access all the features and resources available on our platform.
 
-To get started, please visit [Link to platform].
+To get started, please visit https://polydash-beryl.vercel.app/.
 
 If you have any questions or need assistance, please don't hesitate to contact us at kartikeypathak08@gmail.com.
 
