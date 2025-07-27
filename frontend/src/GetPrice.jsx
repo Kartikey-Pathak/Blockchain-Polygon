@@ -40,7 +40,7 @@ function GetPrice({msg}) {
 
         <div className=" w-[100%] md:w-[90%] relative">
             {!loading ?
-                (msg ? Allcoins.filter(coin => coin.name.toLowerCase().includes(msg)) : Allcoins)
+                (msg ? Allcoins.filter(coin => coin.name.toLowerCase().includes(msg.toLowerCase())) : Allcoins)
                     .map((data, idx) => (
                         <Link to="/prices/data" key={idx} state={data}><div key={idx} className="grid grid-cols-4 mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between">
                             <div className=" flex flex-row items-center gap-2 md:w-7 md:gap-5 ml-1">
