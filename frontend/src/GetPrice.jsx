@@ -42,8 +42,8 @@ function GetPrice() {
             { !loading?
                 Allcoins.map((data, idx) => (
                     <Link to="/prices/data" key={idx} state={data}><div key={idx} className="grid grid-cols-4 mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between">
-                        <div className=" flex flex-row items-center gap-2 md:gap-5 ml-1">
-                            <img className=" object-cover md:size-7 size-5" src={data.image} alt="" />
+                        <div className=" flex flex-row items-center gap-2 md:w-7 md:gap-5 ml-1">
+                            <img className=" object-cover md:size-7 size-6" src={data.image} alt="" />
                             <h1 className=" font-medium md:text-[1.2rem]">{idx + 1}</h1>
                         </div>
                         <h1 className=" font-semibold text-sm md:text-[1.3rem] flex justify-center text-center whitespace-nowrap">{data.name.length>=10?data.name.substring(0,10)+'...':data.name}</h1>

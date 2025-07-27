@@ -71,18 +71,18 @@ function Prices() {
 
                     {/* The Hero Price Part */}
 
-                    <div ref={heroref} className=" relative mt-10 md:w-[90%] w-[80%] h-[50rem] rounded-xl overflow-y-scroll bg-[#1B1E2D]/40 flex flex-col items-center">
+                    <div ref={heroref} className=" relative mt-10 md:w-[90%] w-[85%] h-[50rem] rounded-xl overflow-y-scroll bg-[#1B1E2D]/40 flex flex-col items-center">
                         <h1 className=" md:text-2xl text-md font-bold text-white">Top Movers</h1>
                         <br />
-                        <div className="flex flex-row  gap-2.5 w-[90%] border-b-2 border-gray-700 h-10 items-center justify-evenly md:justify-between">
-                            <h1 className=" font-semibold text-md flex justify-center text-center md:text-xl md:ml-3 lg:mr-6">#</h1>
-                            <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">Coins</h1>
+                        <div className="flex flex-row  gap-2.5 w-[90%] border-b-2 border-gray-700 h-10 items-center justify-between">
+                            <h1 className=" font-semibold text-[1.1rem] flex justify-center text-center md:text-xl md:ml-3 lg:mr-6">#</h1>
+                            <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl">Coins</h1>
 
-                            <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">Price</h1>
+                            <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl">Price</h1>
 
                             {/* <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">24hrs</h1> */}
 
-                            <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl md:mr-3 lg:ml-6">Market cap</h1>
+                            <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl md:mr-3 lg:ml-6">Market cap</h1>
                         </div>
                         <GetPrice />
                     </div>

@@ -185,20 +185,20 @@ function List() {
 
                         <main className=" flex justify-center">
 
-                            <div className=" relative mt-10 md:w-[90%] w-[80%] h-screen rounded-xl overflow-y-scroll bg-[#1B1E2D]/40 flex flex-col items-center">
+                            <div className=" relative mt-10 md:w-[90%] w-[85%] h-screen rounded-xl overflow-y-scroll bg-[#1B1E2D]/40 flex flex-col items-center">
                                 <h1 className=" md:text-2xl text-md font-bold text-white">Top Movers</h1>
                                 <br />
-                                <div className="flex flex-row gap-2.5 w-[90%] border-b-2 border-gray-700 h-10 items-center justify-evenly md:justify-between">
-                                    <h1 className=" font-semibold text-md flex justify-center text-center md:text-xl md:ml-3 lg:mr-6">#</h1>
-                                    <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">Coins</h1>
+                                <div className="flex flex-row gap-2.5 w-[90%] border-b-2 border-gray-700 h-10 items-center justify-evenly">
+                                    <h1 className=" font-semibold text-[1.1rem] flex justify-center text-center md:text-xl md:ml-3 lg:mr-6">#</h1>
+                                    <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl">Coins</h1>
 
-                                    <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">Price</h1>
+                                    <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl">Price</h1>
 
-                                    <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl">24hrs</h1>
+                                    <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl">24hrs</h1>
 
                                     {/* {!small ? <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl md:mr-3 lg:ml-6">Market cap</h1> : null} */}
 
-                                    <h1 className=" font-semibold flex justify-center text-center text-sm md:text-xl md:mr-3 lg:ml-6">Remove</h1>
+                                    <h1 className=" font-semibold flex justify-center text-center text-[1.1rem] md:text-xl md:mr-3 lg:ml-6">Remove</h1>
                                 </div>
 
 
@@ -206,8 +206,8 @@ function List() {
                                     {!load ?
                                         Allcoins.map((data, idx) => (
                                             <Link to="/prices/data" key={idx} state={data}><div key={idx} className={`grid ${!small ? 'grid-cols-5' : 'grid-cols-5'} mt-3 md:gap-50 gap-5  w-full border-b-2 hover:bg-gray-700 hover:rounded-2xl transition-all cursor-pointer border-gray-900 h-10 items-center justify-evenly md:justify-between`}>
-                                                <div className=" flex flex-row items-center gap-2 md:gap-5 ml-1">
-                                                    <img className=" object-cover md:size-7 size-5" src={data.image} alt="" />
+                                                <div className=" flex flex-row items-center gap-2 md:w-7 md:gap-5 ml-1">
+                                                    <img className=" object-cover md:size-7 size-6" src={data.image} alt="" />
                                                     <h1 className=" font-medium md:text-[1.2rem]">{idx + 1}</h1>
                                                 </div>
                                                 <h1 className=" font-semibold text-sm md:text-[1.3rem] flex justify-center text-center whitespace-nowrap">{data.name.length >= 10 ? data.name.substring(0, 10) + '...' : data.name}</h1>

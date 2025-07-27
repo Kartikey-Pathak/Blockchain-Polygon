@@ -84,7 +84,7 @@ function Nav() {
                       </Link>
 
                       <Link to="/user/create" className=" h-full m-4">
-                        <div className="flex items-center justify-center border-2 rounded-xl hover:bg-black/10 transition-all cursor-pointer border-black h-full w-16 bg-black">
+                        <div className="flex items-center justify-center border-2 rounded-xl hover:bg-black/10 transition-all cursor-pointer border-black h-full w-20 bg-black">
                           <h1 className=" text-white font-semibold text-[1rem]">Sign-Up</h1>
                         </div>
                       </Link>
