@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MyCoinsBtn from './Components/MyCoinsBtn';
+import { h1 } from 'framer-motion/client';
+import Chart from './Components/Chartdisplay';
+import Chartdisplay from './Components/Chartdisplay';
 
 
 function Data() {
@@ -12,6 +15,7 @@ function Data() {
     const [msg, setmsg] = useState();
     const [errmsg, seterrmsg] = useState();
     const [loading, setLoading] = useState(false);
+    const [chartdata,setchartdata]=useState();
 
     const coin = location.state;
 
@@ -58,6 +62,25 @@ function Data() {
             setmsg();
         }, 10000);
     }, [msg]); // run animation after msg state is updated
+
+    //APi FOR CHART..
+    useEffect(() => {
+        const chart = async () => {
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    'x-cg-demo-api-key': import.meta.env.VITE_CG_API_KEY
+                }
+            };
+            fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/market_chart?vs_currency=inr&days=10&interval=daily`, options)
+                .then(res => res.json())
+                .then(res => setchartdata(res))
+                .catch(err => console.error(err));
+        }
+
+        chart();
+    }, [])
 
 
     return (
@@ -124,7 +147,7 @@ function Data() {
                                 </div>
 
                                 {/* Save Button */}
-                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[30vw] max-w-[15rem] ${loading?"bg-green-800":"bg-green-600"} flex items-center justify-center py-3 rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
+                                <div onClick={() => { handlesubmit(coin.id) }} className={` w-[30vw] max-w-[15rem] ${loading ? "bg-green-800" : "bg-green-600"} flex items-center justify-center py-3 rounded-4xl  hover:bg-green-800 hover:scale-95 transition-all cursor-pointer`}>
                                     <h1 className=' text-xl font-semibold text-white'>{loading ? 'Saving...' : 'Save'}</h1>
                                 </div>
                                 <br />
@@ -136,11 +159,15 @@ function Data() {
                         </div>
 
                         {/* graph */}
-                        <div className="md:w-[90%] w-[90%] md:h-[25rem] h-[16rem] order-1 flex items-center justify-center rounded-4xl  bg-white">
-                            f
-
-
+                        {chartdata?
+                        <div className="md:w-[90%] w-[90%] md:h-[25rem] h-[16rem] order-1 flex items-center justify-center rounded-4xl  bg-white/90">
+                          <Chartdisplay chartdata={chartdata}/>
+                          </div>
+                        :
+                        <div className="md:w-[90%] w-[90%] md:h-[25rem] h-[16rem] order-1 flex items-center justify-center rounded-4xl  bg-white/90"> 
+                        <span className="loading loading-bars loading-xl text-black"></span>
                         </div>
+                        }
 
 
                     </div>
