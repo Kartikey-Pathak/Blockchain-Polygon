@@ -84,7 +84,7 @@ function Data() {
 
 
     return (
-        <div className=" w-full max-w-screen md:min-h-screen h-[100rem] md:h-[70rem] relative bg-black">
+        <div className=" w-full max-w-screen md:min-h-screen h-[100rem] md:h-[99rem] lg:h-[70rem] relative bg-black">
             <header>
                 <Nav />
             </header>
@@ -95,7 +95,7 @@ function Data() {
 
 
                         {/* information */}
-                        <div className=" h-fit w-full mt-12 flex items-start flex-col  md:order-2">
+                        <div className=" h-fit w-full mt-12 flex items-start flex-col  md:order-1 lg:order-2">
                             <h1 className="text-4xl text-white font-semibold mt-3 mx-auto">Coin Info</h1>
 
                             <div className=" h-20 w-[90vw]  md:w-[25vw]  items-center justify-center  m-10 flex flex-col">
@@ -175,7 +175,7 @@ function Data() {
             </main>
 
             {msg ?
-                <div className=' flex justify-center items-center absolute bottom-135 md:bottom-60 z-[100] left-0 right-0'>
+                <div className=' flex justify-center items-center absolute bottom-135 md:bottom-120 z-[100] left-0 right-0'>
                     <div role="alert" id='mssg' className=" opacity-0 alert alert-success">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -186,7 +186,7 @@ function Data() {
             }
             {/* If Any Server Occurs */}
             {errmsg ?
-                <div className=' flex justify-center items-center absolute bottom-135 md:bottom-60 z-[100] left-0 right-0'>
+                <div className=' flex justify-center items-center absolute bottom-135 md:bottom-110 z-[100] left-0 right-0'>
                     <div role="alert" className="alert alert-error">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -197,7 +197,7 @@ function Data() {
             }
 
 
-            <div className=' absolute bottom-50 md:bottom-10  right-0 left-0'>
+            <div className=' absolute bottom-50 md:bottom-20 lg:bottom-30  right-0 left-0'>
                 <MyCoinsBtn />
             </div>
 
