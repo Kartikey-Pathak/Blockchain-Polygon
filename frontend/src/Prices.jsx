@@ -19,9 +19,9 @@ gsap.registerPlugin(ScrollTrigger);
 function Prices() {
     const titleref = useRef(null);
     const heroref = useRef(null);
-    const inputref=useRef();
-    const [input,setinput]=useState();
-    const [msg,setmsg]=useState();
+    const inputref = useRef();
+    const [input, setinput] = useState();
+    const [msg, setmsg] = useState();
 
     useGSAP(() => {
         gsap.from(titleref.current, {
@@ -67,10 +67,21 @@ function Prices() {
                         <h4 className=" text-white/50 font-bold text-[3vw] md:text-[1.4vw]">Monitor, compare, and explore crypto price movements.</h4>
                     </div>
                     {/* Search And Button */}
+
+
                     <div className=" flex flex-row w-full max-w-screen justify-center gap-1 items-center mt-10">
-                        <input onChange={(e)=>setinput(e.target.value)} ref={inputref} onKeyDown={(e)=>{if(e.key==='Enter'){setmsg(input)}}}  type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name="" />
-                        <label htmlFor="inp"><button onClick={()=>{setmsg(input)}}  className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button></label>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();    // prevent page reload
+                                setmsg(input);         // run your search
+                            }}
+                            className=" flex items-center gap-1 w-full justify-center flex-row">
+                            <input onChange={(e) => setinput(e.target.value)} ref={inputref} onKeyDown={(e) => { if (e.key === 'Enter') { setmsg(input) } }} type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name="" />
+                            <label htmlFor="inp"><button type="submit"
+                                className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button></label>
+                        </form>
                     </div>
+
 
                     {/* The Hero Price Part */}
 
@@ -95,9 +106,9 @@ function Prices() {
 
 
             </main>
-           
-           {/* A Route Compoennt With a Button To Route to the Coins Saved List Page */}
-            <MyCoinsBtn/>
+
+            {/* A Route Compoennt With a Button To Route to the Coins Saved List Page */}
+            <MyCoinsBtn />
 
             <footer>
                 <End />
