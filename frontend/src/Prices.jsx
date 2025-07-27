@@ -76,9 +76,9 @@ function Prices() {
                                 setmsg(input);         // run your search
                             }}
                             className=" flex items-center gap-1 w-full justify-center flex-row">
-                            <input onChange={(e) => setinput(e.target.value)} ref={inputref} onKeyDown={(e) => { if (e.key === 'Enter') { setmsg(input) } }} type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name="" />
-                            <label htmlFor="inp"><button type="submit"
-                                className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button></label>
+                            <input onChange={(e) => setinput(e.target.value)} ref={inputref} value={input||""} type="text" id="inp" placeholder="Search" className=" border-none outline-none placeholder:text-black placeholder:text-sm px-3 font-medium text-black w-[50%] max-w-[24rem] rounded-xl h-10 bg-white" name="" />
+                            <button type="submit"
+                                className=" bg-[#83B4FF] hover:bg-[#83D4FF] cursor-pointer transition-all duration-150 text-black h-10 rounded-xl w-[20vw] md:w-[10vw] text-sm font-bold">Search</button>
                         </form>
                     </div>
 
