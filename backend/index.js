@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 const cors = require("cors");
 const cron = require('node-cron');
+const https = require('https');    // using to stay awake the server
 
 const sendOtpEmail = require('./otp.js');
 const sendmsg = require('./msg.js');
@@ -313,6 +314,25 @@ cron.schedule('*/5 * * * *', async () => {
     } catch (err) {
         console.error('Error cleaning expired users:', err);
     }
+});
+
+//Logic To Stay the server awake everytime for render 
+cron.schedule('*/14 * * * *', () => {
+    const options = {
+        hostname: 'https://blockchain-polygon.onrender.com/', // backend domain
+        path: '/',
+        method: 'GET'
+    };
+
+    const req = https.request(options, res => {
+        console.log("Success Re-Render");
+    });
+
+    req.on('error', error => {
+        console.error("Falied To Re-Render Report User");
+    });
+
+    req.end();
 });
 
 const PORT = process.env.PORT || 5000;
