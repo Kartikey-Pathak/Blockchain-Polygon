@@ -319,7 +319,7 @@ cron.schedule('*/5 * * * *', async () => {
 //Logic To Stay the server awake everytime for render 
 cron.schedule('*/14 * * * *', () => {
     const options = {
-        hostname: 'https://blockchain-polygon.onrender.com/', // backend domain
+        hostname: 'blockchain-polygon.onrender.com', // backend domain
         path: '/',
         method: 'GET'
     };
