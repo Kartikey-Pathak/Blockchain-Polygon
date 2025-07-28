@@ -14,6 +14,7 @@ import End from './End'
 import Foot from './Foot'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect } from 'react'
+// import About from './Components/About'
 // import Prices from './Prices'
 // import Data from './Data'
 // import User from './User'
@@ -35,6 +36,7 @@ const Otp = lazy(() => import('./Components/Otp'))
 const Private = lazy(() => import('./Components/Private'))
 const Otpreset = lazy(() => import('./Components/Otpreset'))
 const Forget = lazy(() => import('./Forget'))
+const About=lazy(()=>import('./Components/About'));
 
 
 function App() {
@@ -77,6 +79,7 @@ function App() {
 
 
         </Route>
+        <Route element={<About/>} path='/about' />
         <Route element={<Otp />} path='/user/otp' />
         <Route element={<User />} path='/user' />
         <Route element={<Create />} path='/user/create' />
