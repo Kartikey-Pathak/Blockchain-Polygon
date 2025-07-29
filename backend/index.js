@@ -3,8 +3,6 @@ const express = require("express");
 require("./config.js");
 const product = require("./users.js");
 
-//For feedback store part
-require('./config2.js');
 const product2=require('./users2.js');
 
 const app = express();
