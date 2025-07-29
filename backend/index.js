@@ -304,9 +304,9 @@ app.post("/feedback", async (req, resp) => {
             { feedback: req.body.feedback },        // update feedback
             { upsert: true, new: true }             // create if not found
         );
-        resp.status(200).send("Success");
+        resp.status(200).json({ msg: "Success" });;
     } catch (error) {
-        resp.status(500).send("Server Error");
+        resp.status(500).send({error:"Server Error Report Developer"});
     }
 })
 
