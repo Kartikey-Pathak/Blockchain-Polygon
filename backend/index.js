@@ -3,7 +3,7 @@ const express = require("express");
 require("./config.js");
 const product = require("./users.js");
 
-const product2=require('./users2.js');
+const product2 = require('./users2.js');
 
 const app = express();
 const path = require('path');
@@ -296,16 +296,16 @@ app.delete("/user/delete", async (req, resp) => {
 })
 
 //FeedBack Storage Route
-app.post("/feedback",async (req,resp)=>{
-    
-    try{
-    let user=await new product2({
-        email:req.body.email,
-        feedback:req.body.feedback,
-    });
-    let result=await user.save();
-    resp.status(200).send("Success");
-    }catch(error){
+app.post("/feedback", async (req, resp) => {
+
+    try {
+        let result = await product2.findOneAndUpdate(
+            { email: req.body.email },              // search by email
+            { feedback: req.body.feedback },        // update feedback
+            { upsert: true, new: true }             // create if not found
+        );
+        resp.status(200).send("Success");
+    } catch (error) {
         resp.status(500).send("Server Error");
     }
 })
