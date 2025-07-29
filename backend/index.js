@@ -1,6 +1,12 @@
 const express = require("express");
+
 require("./config.js");
 const product = require("./users.js");
+
+//For feedback store part
+require('./config2.js');
+const product2=require('./users2.js');
+
 const app = express();
 const path = require('path');
 const cors = require("cors");
@@ -29,6 +35,21 @@ app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
+
+//FeedBack Storage Route
+app.post("/feedback",async (req,resp)=>{
+    
+    try{
+    let user=await new product2({
+        email:req.body.email,
+        feedback:req.body.feedback,
+    });
+    let result=await user.save();
+    resp.status(200).send("Success");
+    }catch(error){
+        resp.status(500).send("Server Error");
+    }
+})
 
 
 app.post("/user/signup", async (req, resp) => {
