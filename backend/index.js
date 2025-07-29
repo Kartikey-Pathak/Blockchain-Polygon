@@ -28,29 +28,6 @@ app.get("/", (req, res) => {
 });
 
 
-// serve frontend
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-// fallback: always return index.html for React Router
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
-
-//FeedBack Storage Route
-app.post("/feedback",async (req,resp)=>{
-    
-    try{
-    let user=await new product2({
-        email:req.body.email,
-        feedback:req.body.feedback,
-    });
-    let result=await user.save();
-    resp.status(200).send("Success");
-    }catch(error){
-        resp.status(500).send("Server Error");
-    }
-})
-
 
 app.post("/user/signup", async (req, resp) => {
     try {
@@ -320,6 +297,22 @@ app.delete("/user/delete", async (req, resp) => {
 
 })
 
+//FeedBack Storage Route
+app.post("/feedback",async (req,resp)=>{
+    
+    try{
+    let user=await new product2({
+        email:req.body.email,
+        feedback:req.body.feedback,
+    });
+    let result=await user.save();
+    resp.status(200).send("Success");
+    }catch(error){
+        resp.status(500).send("Server Error");
+    }
+})
+
+
 
 
 cron.schedule('*/5 * * * *', async () => {
@@ -355,6 +348,16 @@ cron.schedule('*/14 * * * *', () => {
 
     req.end();
 });
+
+// serve frontend
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+// fallback: always return index.html for React Router
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

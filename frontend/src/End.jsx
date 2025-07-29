@@ -31,7 +31,7 @@ function End() {
     const handleClick = () => {
         setclick(!click); // toggle the state first
 
-        gsap.to(inputRef.current, {
+        gsap.to(inputref.current, {
             scale: click ? 1 : 1.1, // toggle scale based on click state
             borderColor: !click ? "#8b5cf6" : "rgba(255, 255, 255, 0.2)",
             duration: 0.1,
@@ -43,11 +43,13 @@ function End() {
     const feedback = async () => {
         if (!input) {
             alert("Fill The FeedBack..");
+            return;
         }
         let email = localStorage.getItem('signupEmail');
         let feedback = input;
         if (!email) {
             alert("Login First..");
+            return;
         }
 
         try{
