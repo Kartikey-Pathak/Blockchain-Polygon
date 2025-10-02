@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@tailwind utilities;
+
+
+@theme{
+    --breakpoint-tb: 900px;
+}

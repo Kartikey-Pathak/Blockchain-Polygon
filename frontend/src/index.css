@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@tailwind utilities;
+
+@theme{
+    --breakpoint-tb: 900px;
+}
+body{
+     margin: 0;
+  overflow-x: hidden;
+}
