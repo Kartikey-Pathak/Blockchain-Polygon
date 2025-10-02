@@ -1,15 +1,21 @@
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// set API key globally from env
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 async function sendmsg(toEmail) {
-    const msg = {
-        to: toEmail,
-        from: process.env.EMAIL_USER, // must be a verified sender in SendGrid
-        subject: 'User Registered Successfully',
-        text: `This email confirms that your account with PolyDash has been successfully created.
+  // create a transporter
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail', // or your preferred email service
+    auth: {
+      user: process.env.EMAIL_USER, // your email
+      pass: process.env.EMAIL_PASS  // your email password or app password
+    }
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: toEmail,
+    subject: 'Account Created Successfully',
+    text: `This email confirms that your account with PolyDash has been successfully created.
 
 We are delighted to welcome you to our community. You can now access all the features and resources available on our platform.
 
@@ -20,16 +26,15 @@ If you have any questions or need assistance, please don't hesitate to contact u
 We look forward to your engagement with PolyDash.
 
 Sincerely,
-Developer ~ Kartikey Pathak.
-        `,
-    };
+Developer ~ Kartikey Pathak.`
+  };
 
-    try {
-        await sgMail.send(msg);
-        console.log(' Registration email sent');
-    } catch (error) {
-        console.error('Error sending registration email:', error.response?.body || error.message);
-    }
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Registration email sent:', info.response);
+  } catch (err) {
+    console.error('❌ Error sending registration email:', err);
+  }
 }
 
 module.exports = sendmsg;

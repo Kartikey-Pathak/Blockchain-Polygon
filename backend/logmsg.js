@@ -1,15 +1,21 @@
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// set API key once from env
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 async function logmsg(toEmail, user) {
-    const msg = {
-        to: toEmail,
-        from: process.env.EMAIL_USER, // must be the verified sender in SendGrid
-        subject: 'Successful login to your account',
-        text: `Hello ${user},
+  // create a transporter
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail', // or any other email service
+    auth: {
+      user: process.env.EMAIL_USER, // your email
+      pass: process.env.EMAIL_PASS  // your email password or app password if 2FA is enabled
+    }
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: toEmail,
+    subject: 'Successful Login Notification',
+    text: `Hello ${user},
 
 We noticed that you successfully logged in to your account.
 
@@ -18,16 +24,15 @@ If this was you, you can safely ignore this message.
 If you didn't attempt to log in, please reset your password immediately and contact support.
 
 Sincerely,
-Developer ~ Kartikey Pathak.
-        `,
-    };
+Developer ~ Kartikey Pathak.`
+  };
 
-    try {
-        await sgMail.send(msg);
-        console.log(' Login notification email sent');
-    } catch (error) {
-        console.error('Error sending login email:', error.response?.body || error.message);
-    }
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Login notification email sent:', info.response);
+  } catch (err) {
+    console.error('❌ Error sending login email:', err);
+  }
 }
 
 module.exports = logmsg;

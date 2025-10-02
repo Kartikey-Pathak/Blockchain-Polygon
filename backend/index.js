@@ -196,11 +196,7 @@ app.post("/user/login", async (req, resp) => {
         let signupEmail = user.email;
         if (password === user.password) {
             // send Login email
-<<<<<<< HEAD
-            try {
-=======
              try {
->>>>>>> f426189041cdd3e6e451e61d7efe3ef2dc6fab06
                logmsg(user.email, user.name);
             } catch (err) {
                 console.error("Email sending failed:", err);
@@ -307,11 +303,8 @@ app.delete("/user/delete", async (req, resp) => {
             resp.status(400).send({ error: "User Didn't Found" });
         }
         // send Delete email
-<<<<<<< HEAD
          deletemsg(email);
-=======
         deletemsg(email);
->>>>>>> f426189041cdd3e6e451e61d7efe3ef2dc6fab06
         await user.deleteOne();
 
         resp.status(200).send({ msg: "Success" });
