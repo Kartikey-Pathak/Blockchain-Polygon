@@ -2,19 +2,17 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 async function sendmsg(toEmail) {
-  // Create a transporter with explicit Gmail SMTP
+  // create a transporter
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",   // Gmail SMTP server
-    port: 587,                // TLS port
-    secure: false,            // false = use STARTTLS
+    service: 'Gmail', // or your preferred email service
     auth: {
-      user: process.env.EMAIL_USER,  // your Gmail address
-      pass: process.env.EMAIL_PASS,  // App Password from Google
-    },
+      user: process.env.EMAIL_USER, // your email
+      pass: process.env.EMAIL_PASS  // your email password or app password
+    }
   });
 
   const mailOptions = {
-    from: `"PolyDash Team" <${process.env.EMAIL_USER}>`,
+    from: process.env.EMAIL_USER,
     to: toEmail,
     subject: 'Account Created Successfully',
     text: `This email confirms that your account with PolyDash has been successfully created.
@@ -36,8 +34,6 @@ Developer ~ Kartikey Pathak.`
     console.log('✅ Registration email sent:', info.response);
   } catch (err) {
     console.error('❌ Error sending registration email:', err);
-    // Optional: throw error for backend handling
-    throw new Error('Failed to send registration email');
   }
 }
 

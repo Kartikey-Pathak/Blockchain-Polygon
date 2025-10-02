@@ -15,11 +15,13 @@
     "@emailjs/nodejs": "^5.0.2",
     "@sendgrid/mail": "^8.1.6",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.3",
     "emailjs-com": "^3.2.0",
     "express": "^5.1.0",
+    "googleapis": "^161.0.0",
     "mailersend": "^2.6.0",
     "mongoose": "^8.16.4",
-    "nodemailer": "^7.0.5"
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.6"
   }
 }
