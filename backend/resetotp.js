@@ -19,7 +19,7 @@ async function sendResetOtpEmail(toEmail, otp) {
 
 ${otp}
 
-This OTP will be valid for 15 minutes till ${formattedTime}.
+This OTP will be valid for 15 minutes till.
 
 Do not share this OTP with anyone. If you didn't request this, ignore this email.
 

@@ -20,7 +20,7 @@ To authenticate, please use the following One Time Password (OTP):
 
 ${otp}
 
-This OTP will be valid for 15 minutes till ${formattedTime}.
+This OTP will be valid for 15 minutes till.
 
 Do not share this OTP with anyone. If you didn't make this request, you can safely ignore this email.
 
