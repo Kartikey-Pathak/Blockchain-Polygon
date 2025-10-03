@@ -1,22 +1,19 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-async function resetotp(toEmail, otp) {
-  // Create transporter
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail', // or any other email provider
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS, // app password if using Gmail 2FA
-    },
+// set API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+async function sendResetOtpEmail(toEmail, otp) {
+  const expiryTime = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+  const formattedTime = expiryTime.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit'
   });
 
-  const expiryTime = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
-  const formattedTime = expiryTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+  const msg = {
     to: toEmail,
+    from: process.env.SENDGRID_VERIFIED_EMAIL, // ✅ must match verified sender
     subject: 'OTP for Password Reset',
     text: `To reset your password, please use the following OTP:
 
@@ -31,11 +28,14 @@ PolyDash Team ~ Developer Kartikey Pathak.`
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Reset OTP email sent:', info.response);
+    await sgMail.send(msg);
+    console.log('✅ Reset OTP email sent successfully to', toEmail);
   } catch (err) {
     console.error('❌ Error sending reset OTP email:', err);
+    if (err.response) {
+      console.error(err.response.body); // detailed SendGrid error
+    }
   }
 }
 
-module.exports = resetotp;
+module.exports = sendResetOtpEmail;

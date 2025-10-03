@@ -1,19 +1,13 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-async function deletemsg(toEmail) {
-  // create a transporter
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail', // or another email service
-    auth: {
-      user: process.env.EMAIL_USER, // your email address
-      pass: process.env.EMAIL_PASS  // your email password or app password if 2FA
-    }
-  });
+// set API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+async function sendDeleteAccountEmail(toEmail) {
+  const msg = {
     to: toEmail,
+    from: process.env.SENDGRID_VERIFIED_EMAIL, // ✅ must be verified sender
     subject: 'Your PolyDash Account Deleted',
     text: `Hello,
 
@@ -22,16 +16,19 @@ We wanted to let you know that your PolyDash account has been successfully delet
 Thank you for using PolyDash. We're sorry to see you go!
 If this was a mistake or you have any questions, feel free to contact your developer.
 
-Best regards,
+Best regards,  
 The PolyDash ~ Developer Kartikey Pathak.`
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Email sent successfully:', info.response);
+    await sgMail.send(msg);
+    console.log('✅ Account deletion email sent successfully to', toEmail);
   } catch (err) {
-    console.error('❌ Email failed:', err);
+    console.error('❌ Error sending account deletion email:', err);
+    if (err.response) {
+      console.error(err.response.body); // detailed SendGrid error
+    }
   }
 }
 
-module.exports = deletemsg;
+module.exports = sendDeleteAccountEmail;

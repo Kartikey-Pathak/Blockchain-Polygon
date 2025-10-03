@@ -1,19 +1,13 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-async function logmsg(toEmail, user) {
-  // create a transporter
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail', // or any other email service
-    auth: {
-      user: process.env.EMAIL_USER, // your email
-      pass: process.env.EMAIL_PASS  // your email password or app password if 2FA is enabled
-    }
-  });
+// set API key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+async function sendLoginNotificationEmail(toEmail, user) {
+  const msg = {
     to: toEmail,
+    from: process.env.SENDGRID_VERIFIED_EMAIL, // ✅ must match verified sender
     subject: 'Successful Login Notification',
     text: `Hello ${user},
 
@@ -28,11 +22,14 @@ Developer ~ Kartikey Pathak.`
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Login notification email sent:', info.response);
+    await sgMail.send(msg);
+    console.log('✅ Login notification email sent successfully to', toEmail);
   } catch (err) {
-    console.error('❌ Error sending login email:', err);
+    console.error('❌ Error sending login notification email:', err);
+    if (err.response) {
+      console.error(err.response.body); // shows SendGrid error details
+    }
   }
 }
 
-module.exports = logmsg;
+module.exports = sendLoginNotificationEmail;

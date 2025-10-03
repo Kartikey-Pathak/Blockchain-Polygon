@@ -1,19 +1,13 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-async function sendmsg(toEmail) {
-  // create a transporter
-  const transporter = nodemailer.createTransport({
-    service: 'Gmail', // or your preferred email service
-    auth: {
-      user: process.env.EMAIL_USER, // your email
-      pass: process.env.EMAIL_PASS  // your email password or app password
-    }
-  });
+// set API key from env
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
+async function sendAccountCreationEmail(toEmail) {
+  const msg = {
     to: toEmail,
+    from: process.env.SENDGRID_VERIFIED_EMAIL, // ✅ must be a verified sender in SendGrid
     subject: 'Account Created Successfully',
     text: `This email confirms that your account with PolyDash has been successfully created.
 
@@ -26,15 +20,18 @@ If you have any questions or need assistance, please don't hesitate to contact u
 We look forward to your engagement with PolyDash.
 
 Sincerely,
-Developer ~ Kartikey Pathak.`
+Developer ~ Kartikey Pathak.`,
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Registration email sent:', info.response);
+    await sgMail.send(msg);
+    console.log('✅ Registration email sent successfully to', toEmail);
   } catch (err) {
     console.error('❌ Error sending registration email:', err);
+    if (err.response) {
+      console.error(err.response.body); // shows SendGrid error details
+    }
   }
 }
 
-module.exports = sendmsg;
+module.exports = sendAccountCreationEmail;
