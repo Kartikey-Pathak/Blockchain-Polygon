@@ -1,5 +1,5 @@
 💹 PolyDash – Crypto Price Dashboard
-Live Site: https://polydash-beryl.vercel.app/
+Live Site: https://polydash70.vercel.app/
 
 PolyDash is a sleek and responsive crypto price dashboard built using React and Tailwind CSS, backed by a robust Node.js + Express.js backend hosted on Render. It offers real-time price tracking, dynamic UI updates, OTP-based user login, and more — all in one smooth, interactive experience.
 
