@@ -12,12 +12,11 @@ async function sendOtpEmail(toEmail, otp) {
 
   const msg = {
     to: toEmail,
-    from: {
-      email: process.env.SENDGRID_VERIFIED_EMAIL,
-      name: 'PolyDash Team'
-    },
+    from: process.env.SENDGRID_VERIFIED_EMAIL, // string only
     subject: 'Your OTP Code',
-    text: `To authenticate, please use the following One Time Password (OTP):
+    text: `Hello from PolyDash Team,
+
+To authenticate, please use the following One Time Password (OTP):
 
 ${otp}
 
