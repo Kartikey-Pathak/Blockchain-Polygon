@@ -1,7 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 require('dotenv').config();
 
-// set API key from env
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 async function sendOtpEmail(toEmail, otp) {
@@ -13,7 +12,10 @@ async function sendOtpEmail(toEmail, otp) {
 
   const msg = {
     to: toEmail,
-    from: process.env.SENDGRID_VERIFIED_EMAIL, // ✅ must match verified sender in SendGrid
+    from: {
+      email: process.env.SENDGRID_VERIFIED_EMAIL,
+      name: 'PolyDash Team'
+    },
     subject: 'Your OTP Code',
     text: `To authenticate, please use the following One Time Password (OTP):
 
@@ -24,7 +26,7 @@ This OTP will be valid for 15 minutes till ${formattedTime}.
 Do not share this OTP with anyone. If you didn't make this request, you can safely ignore this email.
 
 Thanks,
-PolyDash Team ~ Developer Kartikey Pathak.`,
+PolyDash Team ~ Developer Kartikey Pathak.`
   };
 
   try {
@@ -33,7 +35,7 @@ PolyDash Team ~ Developer Kartikey Pathak.`,
   } catch (err) {
     console.error('❌ Error sending OTP email:', err);
     if (err.response) {
-      console.error(err.response.body); // shows SendGrid error details
+      console.error(err.response.body);
     }
   }
 }
